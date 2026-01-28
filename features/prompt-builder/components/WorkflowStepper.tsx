@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Check, Sliders, Globe2, Camera, Layers } from "lucide-react";
+import { Sliders, Globe2, Camera, Layers } from "lucide-react";
 
 export interface Step {
   id: string;
@@ -50,20 +50,16 @@ export function WorkflowStepper({
                   "transition-all duration-200"
                 )}
               >
-                {/* Circle */}
+                {/* Circle - always shows icon */}
                 <div
                   className={cn(
                     "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
                     isActive && "bg-brand-gradient text-white scale-110 shadow-lg",
-                    isCompleted && !isActive && "bg-brand-gradient/20 text-[#ab57c7] border-2 border-[#ab57c7]/30",
+                    isCompleted && !isActive && "bg-brand-gradient text-white opacity-60",
                     !isActive && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground bg-background"
                   )}
                 >
-                  {isCompleted && !isActive ? (
-                    <Check className="w-5 h-5" />
-                  ) : (
-                    <span className="w-5 h-5">{step.icon}</span>
-                  )}
+                  <span className="w-5 h-5">{step.icon}</span>
                 </div>
 
                 {/* Label */}
