@@ -9,6 +9,7 @@ import {
   CompositionSection,
   ObjectsSection,
   JsonPreview,
+  ImagePreview,
   WorkflowStepper,
   WORKFLOW_STEPS,
   usePromptBuilder,
@@ -168,8 +169,9 @@ export default function HomePage() {
           </div>
 
           {/* Right Panel - Preview */}
-          <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-20">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="lg:sticky lg:top-20 space-y-6">
+              <ImagePreview prompt={prompt} />
               <JsonPreview prompt={prompt} onLoad={loadPrompt} />
             </div>
           </div>
