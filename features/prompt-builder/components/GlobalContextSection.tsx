@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Textarea } from "@/components/ui/textarea";
 import { Globe2, Sun, Palette, MapPin, Sparkles, FileText } from "lucide-react";
 import type { ImagePrompt } from "../types/prompt";
@@ -38,6 +39,12 @@ export function GlobalContextSection({
   onUpdateLighting,
   onUpdateColorPalette,
 }: GlobalContextSectionProps) {
+  const t = useTranslations("context");
+  const tc = useTranslations("common");
+  const ts = useTranslations("sections");
+
+  const contrastLabels = [tc("low"), tc("medium"), tc("high")] as const;
+
   const handleColorChange = (index: number, value: string) => {
     const newColors = [...globalContext.color_palette.dominant_hex_estimates];
     newColors[index] = value;
@@ -61,17 +68,17 @@ export function GlobalContextSection({
   };
 
   return (
-    <SectionCard icon={Globe2} title="Context">
+    <SectionCard icon={Globe2} title={ts("context")}>
       <div className="pl-2">
         <StepItem
           icon={<FileText className="w-5 h-5" />}
-          label="Scene Description"
+          label={t("sceneDescription")}
           isComplete={!!globalContext.scene_description}
         >
           <Textarea
             value={globalContext.scene_description}
             onChange={(e) => onUpdate({ scene_description: e.target.value })}
-            placeholder="Describe the overall scene..."
+            placeholder={t("sceneDescriptionPlaceholder")}
             rows={3}
             className="resize-none"
           />
@@ -79,33 +86,33 @@ export function GlobalContextSection({
 
         <StepItem
           icon={<MapPin className="w-5 h-5" />}
-          label="Environment"
+          label={t("environment")}
           isComplete={!!globalContext.environment_type}
         >
           <SelectField
             value={globalContext.environment_type}
             onValueChange={(value) => onUpdate({ environment_type: value })}
             options={ENVIRONMENT_TYPES}
-            placeholder="Select environment..."
+            placeholder={t("selectEnvironment")}
           />
         </StepItem>
 
         <StepItem
           icon={<Sparkles className="w-5 h-5" />}
-          label="Atmosphere"
+          label={t("atmosphere")}
           isComplete={!!globalContext.weather_atmosphere}
         >
           <SelectField
             value={globalContext.weather_atmosphere}
             onValueChange={(value) => onUpdate({ weather_atmosphere: value })}
             options={ATMOSPHERE_OPTIONS}
-            placeholder="Select atmosphere..."
+            placeholder={t("selectAtmosphere")}
           />
         </StepItem>
 
         <StepItem
           icon={<Sun className="w-5 h-5" />}
-          label="Lighting"
+          label={t("lighting")}
           isComplete={!!globalContext.lighting.source}
         >
           <div className="space-y-3">
@@ -114,13 +121,13 @@ export function GlobalContextSection({
                 value={globalContext.lighting.source}
                 onValueChange={(value) => onUpdateLighting({ source: value })}
                 options={LIGHTING_SOURCES}
-                placeholder="Source"
+                placeholder={t("lightingSource")}
               />
               <SelectField
                 value={globalContext.lighting.quality}
                 onValueChange={(value) => onUpdateLighting({ quality: value })}
                 options={LIGHTING_QUALITIES}
-                placeholder="Quality"
+                placeholder={t("lightingQuality")}
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -128,13 +135,13 @@ export function GlobalContextSection({
                 value={globalContext.lighting.direction}
                 onValueChange={(value) => onUpdateLighting({ direction: value })}
                 options={LIGHTING_DIRECTIONS}
-                placeholder="Direction"
+                placeholder={t("lightingDirection")}
               />
               <SelectField
                 value={globalContext.lighting.color_temperature}
                 onValueChange={(value) => onUpdateLighting({ color_temperature: value })}
                 options={COLOR_TEMPERATURES}
-                placeholder="Color Temp"
+                placeholder={t("colorTemperature")}
               />
             </div>
           </div>
@@ -142,7 +149,7 @@ export function GlobalContextSection({
 
         <StepItem
           icon={<Palette className="w-5 h-5" />}
-          label="Colors"
+          label={t("colors")}
           isComplete={globalContext.color_palette.dominant_hex_estimates.length > 0}
           isLast
         >
@@ -155,7 +162,7 @@ export function GlobalContextSection({
             />
 
             <ButtonToggleGroup
-              options={CONTRAST_OPTIONS}
+              options={CONTRAST_OPTIONS.map((opt, i) => ({ value: opt, label: contrastLabels[i] }))}
               value={globalContext.color_palette.contrast_level}
               onChange={(value) => onUpdateColorPalette({ contrast_level: value })}
               columns={3}

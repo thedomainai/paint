@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Paintbrush, ChevronLeft, ChevronRight } from "lucide-react";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
   MetaSection,
   GlobalContextSection,
@@ -16,6 +18,7 @@ import {
 } from "@/features/prompt-builder";
 
 export default function HomePage() {
+  const t = useTranslations();
   const [currentStep, setCurrentStep] = useState(0);
 
   const {
@@ -103,14 +106,21 @@ export default function HomePage() {
               <Paintbrush className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold leading-none">Paint</h1>
-              <p className="text-xs text-muted-foreground">Image Prompt Builder</p>
+              <h1 className="text-lg font-bold leading-none">
+                {t("header.title")}
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                {t("header.subtitle")}
+              </p>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={resetPrompt}>
-            <RotateCcw className="h-4 w-4 mr-2" />
-            Reset
-          </Button>
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+            <Button variant="ghost" size="sm" onClick={resetPrompt}>
+              <RotateCcw className="h-4 w-4 mr-2" />
+              {t("common.reset")}
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -141,7 +151,7 @@ export default function HomePage() {
                 disabled={currentStep === 0}
               >
                 <ChevronLeft className="h-4 w-4 mr-1" />
-                Previous
+                {t("common.previous")}
               </Button>
 
               <div className="flex items-center gap-2">
@@ -162,7 +172,7 @@ export default function HomePage() {
                 onClick={handleNext}
                 disabled={currentStep === WORKFLOW_STEPS.length - 1}
               >
-                Next
+                {t("common.next")}
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -181,7 +191,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t">
         <div className="container mx-auto px-4 py-4 text-center text-sm text-muted-foreground">
-          Build structured image generation prompts for AI models
+          {t("footer.description")}
         </div>
       </footer>
     </div>

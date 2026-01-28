@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Trash2, Copy, Upload, X, ImageIcon } from "lucide-react";
+import { Trash2, Copy, X, ImageIcon } from "lucide-react";
 import type { PromptObject, ObjectCategory, ReferenceImage } from "../types/prompt";
 
 const CATEGORIES: ObjectCategory[] = [
@@ -47,6 +48,9 @@ export function ObjectEditor({
   onRemove,
   onDuplicate,
 }: ObjectEditorProps) {
+  const t = useTranslations("objects");
+  const tc = useTranslations("common");
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -54,7 +58,6 @@ export function ObjectEditor({
     const reader = new FileReader();
     reader.onload = (event) => {
       const result = event.target?.result as string;
-      // Extract base64 data (remove data:image/...;base64, prefix)
       const base64Data = result.split(",")[1];
       const referenceImage: ReferenceImage = {
         data: base64Data,
@@ -80,7 +83,7 @@ export function ObjectEditor({
           <Input
             value={object.label}
             onChange={(e) => onUpdate({ label: e.target.value })}
-            placeholder="Object label"
+            placeholder={t("objectLabel")}
             className="w-48"
           />
         </div>
@@ -96,7 +99,7 @@ export function ObjectEditor({
 
       {/* Reference Image Upload */}
       <div className="space-y-2">
-        <Label>Reference Image</Label>
+        <Label>{t("referenceImage")}</Label>
         {object.reference_image ? (
           <div className="relative inline-block">
             <img
@@ -118,7 +121,7 @@ export function ObjectEditor({
         ) : (
           <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-muted-foreground/30 rounded-lg cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors">
             <ImageIcon className="w-6 h-6 text-muted-foreground mb-1" />
-            <span className="text-xs text-muted-foreground">Upload</span>
+            <span className="text-xs text-muted-foreground">{tc("upload")}</span>
             <input
               type="file"
               accept="image/*"
@@ -131,7 +134,7 @@ export function ObjectEditor({
 
       <div className="grid grid-cols-3 gap-4">
         <div className="space-y-2">
-          <Label>Category</Label>
+          <Label>{t("category")}</Label>
           <Select
             value={object.category}
             onValueChange={(value) =>
@@ -152,7 +155,7 @@ export function ObjectEditor({
         </div>
 
         <div className="space-y-2">
-          <Label>Size</Label>
+          <Label>{t("size")}</Label>
           <Select
             value={object.dimensions_relative}
             onValueChange={(value) =>
@@ -165,15 +168,15 @@ export function ObjectEditor({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Small">Small</SelectItem>
-              <SelectItem value="Medium">Medium</SelectItem>
-              <SelectItem value="Large">Large</SelectItem>
+              <SelectItem value="Small">{t("small")}</SelectItem>
+              <SelectItem value="Medium">{tc("medium")}</SelectItem>
+              <SelectItem value="Large">{t("large")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-2">
-          <Label>Distance from Camera</Label>
+          <Label>{t("distanceFromCamera")}</Label>
           <Select
             value={object.distance_from_camera}
             onValueChange={(value) =>
@@ -186,11 +189,11 @@ export function ObjectEditor({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Close">Close</SelectItem>
-              <SelectItem value="Mid">Mid</SelectItem>
-              <SelectItem value="Far">Far</SelectItem>
-              <SelectItem value="Zero (Overlay)">Zero (Overlay)</SelectItem>
-              <SelectItem value="Behind Subject">Behind Subject</SelectItem>
+              <SelectItem value="Close">{t("close")}</SelectItem>
+              <SelectItem value="Mid">{t("mid")}</SelectItem>
+              <SelectItem value="Far">{t("far")}</SelectItem>
+              <SelectItem value="Zero (Overlay)">{t("overlay")}</SelectItem>
+              <SelectItem value="Behind Subject">{t("behind")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -199,10 +202,10 @@ export function ObjectEditor({
       <Accordion type="single" collapsible className="w-full">
         {/* Location */}
         <AccordionItem value="location">
-          <AccordionTrigger>Location & Bounding Box</AccordionTrigger>
+          <AccordionTrigger>{t("locationBoundingBox")}</AccordionTrigger>
           <AccordionContent className="space-y-4">
             <div className="space-y-2">
-              <Label>Relative Position</Label>
+              <Label>{t("relativePosition")}</Label>
               <Input
                 value={object.location.relative_position}
                 onChange={(e) =>
@@ -213,12 +216,12 @@ export function ObjectEditor({
                     },
                   })
                 }
-                placeholder="e.g., Center, Upper Left"
+                placeholder={t("relativePositionPlaceholder")}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>X Position ({Math.round(object.location.bounding_box_percentage.x * 100)}%)</Label>
+                <Label>{t("xPosition")} ({Math.round(object.location.bounding_box_percentage.x * 100)}%)</Label>
                 <Slider
                   value={[object.location.bounding_box_percentage.x]}
                   onValueChange={([x]) =>
@@ -237,7 +240,7 @@ export function ObjectEditor({
                 />
               </div>
               <div className="space-y-2">
-                <Label>Y Position ({Math.round(object.location.bounding_box_percentage.y * 100)}%)</Label>
+                <Label>{t("yPosition")} ({Math.round(object.location.bounding_box_percentage.y * 100)}%)</Label>
                 <Slider
                   value={[object.location.bounding_box_percentage.y]}
                   onValueChange={([y]) =>
@@ -256,7 +259,7 @@ export function ObjectEditor({
                 />
               </div>
               <div className="space-y-2">
-                <Label>Width ({Math.round(object.location.bounding_box_percentage.width * 100)}%)</Label>
+                <Label>{t("width")} ({Math.round(object.location.bounding_box_percentage.width * 100)}%)</Label>
                 <Slider
                   value={[object.location.bounding_box_percentage.width]}
                   onValueChange={([width]) =>
@@ -275,7 +278,7 @@ export function ObjectEditor({
                 />
               </div>
               <div className="space-y-2">
-                <Label>Height ({Math.round(object.location.bounding_box_percentage.height * 100)}%)</Label>
+                <Label>{t("height")} ({Math.round(object.location.bounding_box_percentage.height * 100)}%)</Label>
                 <Slider
                   value={[object.location.bounding_box_percentage.height]}
                   onValueChange={([height]) =>
@@ -299,19 +302,19 @@ export function ObjectEditor({
 
         {/* Material & Surface */}
         <AccordionItem value="surface">
-          <AccordionTrigger>Material & Surface</AccordionTrigger>
+          <AccordionTrigger>{t("materialSurface")}</AccordionTrigger>
           <AccordionContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>Material</Label>
+                <Label>{t("material")}</Label>
                 <Input
                   value={object.material}
                   onChange={(e) => onUpdate({ material: e.target.value })}
-                  placeholder="e.g., Leather, Cotton, Digital Vector"
+                  placeholder={t("materialPlaceholder")}
                 />
               </div>
               <div className="space-y-2">
-                <Label>Reflectivity</Label>
+                <Label>{t("reflectivity")}</Label>
                 <Select
                   value={object.surface_properties.reflectivity}
                   onValueChange={(value) =>
@@ -327,16 +330,16 @@ export function ObjectEditor({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">None</SelectItem>
-                    <SelectItem value="Low">Low</SelectItem>
-                    <SelectItem value="Medium">Medium</SelectItem>
-                    <SelectItem value="High">High</SelectItem>
+                    <SelectItem value="None">{tc("none")}</SelectItem>
+                    <SelectItem value="Low">{tc("low")}</SelectItem>
+                    <SelectItem value="Medium">{tc("medium")}</SelectItem>
+                    <SelectItem value="High">{tc("high")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Texture</Label>
+              <Label>{t("texture")}</Label>
               <Input
                 value={object.surface_properties.texture}
                 onChange={(e) =>
@@ -347,11 +350,11 @@ export function ObjectEditor({
                     },
                   })
                 }
-                placeholder="e.g., Smooth, Rough, Woven"
+                placeholder={t("texturePlaceholder")}
               />
             </div>
             <div className="space-y-2">
-              <Label>Micro Details</Label>
+              <Label>{t("microDetails")}</Label>
               <Textarea
                 value={object.surface_properties.micro_details}
                 onChange={(e) =>
@@ -362,7 +365,7 @@ export function ObjectEditor({
                     },
                   })
                 }
-                placeholder="Fine details visible on the surface..."
+                placeholder={t("microDetailsPlaceholder")}
                 rows={2}
               />
             </div>
@@ -371,11 +374,11 @@ export function ObjectEditor({
 
         {/* Color */}
         <AccordionItem value="color">
-          <AccordionTrigger>Color Details</AccordionTrigger>
+          <AccordionTrigger>{t("colorDetails")}</AccordionTrigger>
           <AccordionContent className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="space-y-2">
-                <Label>Base Color</Label>
+                <Label>{t("baseColor")}</Label>
                 <div className="flex gap-2">
                   <input
                     type="color"
@@ -406,7 +409,7 @@ export function ObjectEditor({
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Gradient/Pattern</Label>
+              <Label>{t("gradientPattern")}</Label>
               <Input
                 value={object.color_details.gradient_or_pattern}
                 onChange={(e) =>
@@ -417,7 +420,7 @@ export function ObjectEditor({
                     },
                   })
                 }
-                placeholder="e.g., Solid, Striped, Gradient"
+                placeholder={t("gradientPatternPlaceholder")}
               />
             </div>
           </AccordionContent>
@@ -425,14 +428,14 @@ export function ObjectEditor({
 
         {/* Pose/Orientation */}
         <AccordionItem value="pose">
-          <AccordionTrigger>Pose & Orientation</AccordionTrigger>
+          <AccordionTrigger>{t("poseOrientation")}</AccordionTrigger>
           <AccordionContent>
             <div className="space-y-2">
-              <Label>Pose/Orientation</Label>
+              <Label>{t("poseOrientation")}</Label>
               <Textarea
                 value={object.pose_orientation}
                 onChange={(e) => onUpdate({ pose_orientation: e.target.value })}
-                placeholder="Describe the pose or orientation..."
+                placeholder={t("posePlaceholder")}
                 rows={2}
               />
             </div>

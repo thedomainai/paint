@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "title": "Paint - 画像プロンプトビルダー",
+    "description": "ビジュアルインターフェースで構造化された画像生成プロンプトを構築"
+  },
+  "common": {
+    "reset": "リセット",
+    "previous": "前へ",
+    "next": "次へ",
+    "add": "追加",
+    "load": "読み込み",
+    "download": "ダウンロード",
+    "copy": "コピー",
+    "upload": "アップロード",
+    "select": "選択...",
+    "delete": "削除",
+    "low": "低",
+    "medium": "中",
+    "high": "高",
+    "none": "なし"
+  },
+  "header": {
+    "title": "Paint",
+    "subtitle": "画像プロンプトビルダー"
+  },
+  "footer": {
+    "description": "AIモデル用の構造化画像生成プロンプトを構築"
+  },
+  "sections": {
+    "meta": "メタ情報",
+    "context": "コンテキスト",
+    "composition": "構図",
+    "objects": "オブジェクト",
+    "generate": "生成",
+    "json": "JSON"
+  },
+  "meta": {
+    "imageQuality": "画質",
+    "imageType": "画像タイプ",
+    "resolution": "解像度",
+    "compression": "圧縮",
+    "noise": "ノイズ",
+    "lens": "レンズ",
+    "selectType": "タイプを選択...",
+    "selectResolution": "解像度を選択...",
+    "selectLens": "レンズタイプを選択...",
+    "ultra": "ウルトラ"
+  },
+  "context": {
+    "sceneDescription": "シーン説明",
+    "sceneDescriptionPlaceholder": "シーン全体を説明してください...",
+    "environment": "環境",
+    "selectEnvironment": "環境を選択...",
+    "atmosphere": "雰囲気",
+    "selectAtmosphere": "雰囲気を選択...",
+    "lighting": "ライティング",
+    "lightingSource": "光源",
+    "lightingQuality": "品質",
+    "lightingDirection": "方向",
+    "colorTemperature": "色温度",
+    "colors": "カラー"
+  },
+  "composition": {
+    "cameraAngle": "カメラアングル",
+    "selectAngle": "アングルを選択...",
+    "framing": "フレーミング",
+    "selectFraming": "フレーミングを選択...",
+    "depthOfField": "被写界深度",
+    "shallow": "浅い",
+    "deep": "深い",
+    "symmetry": "対称性",
+    "symmetrical": "対称",
+    "asymmetrical": "非対称",
+    "radial": "放射状",
+    "focalPoint": "焦点",
+    "selectFocalPoint": "焦点を選択...",
+    "ruleOfThirds": "三分割法",
+    "selectPosition": "位置を選択..."
+  },
+  "objects": {
+    "title": "オブジェクト",
+    "noObjects": "オブジェクトがありません",
+    "addObject": "オブジェクトを追加",
+    "objectLabel": "オブジェクト名",
+    "referenceImage": "参照画像",
+    "category": "カテゴリ",
+    "size": "サイズ",
+    "small": "小",
+    "large": "大",
+    "distanceFromCamera": "カメラからの距離",
+    "close": "近い",
+    "mid": "中間",
+    "far": "遠い",
+    "overlay": "ゼロ（オーバーレイ）",
+    "behind": "被写体の後ろ",
+    "locationBoundingBox": "位置とバウンディングボックス",
+    "relativePosition": "相対位置",
+    "relativePositionPlaceholder": "例: 中央、左上",
+    "xPosition": "X位置",
+    "yPosition": "Y位置",
+    "width": "幅",
+    "height": "高さ",
+    "materialSurface": "素材と表面",
+    "material": "素材",
+    "materialPlaceholder": "例: レザー、コットン、デジタルベクター",
+    "reflectivity": "反射率",
+    "texture": "テクスチャ",
+    "texturePlaceholder": "例: 滑らか、粗い、織り",
+    "microDetails": "微細ディテール",
+    "microDetailsPlaceholder": "表面に見える細かい詳細...",
+    "colorDetails": "カラー詳細",
+    "baseColor": "ベースカラー",
+    "gradientPattern": "グラデーション/パターン",
+    "gradientPatternPlaceholder": "例: 単色、ストライプ、グラデーション",
+    "poseOrientation": "ポーズと向き",
+    "posePlaceholder": "ポーズや向きを説明してください...",
+    "person": "人物",
+    "apparel": "アパレル",
+    "graphic": "グラフィック"
+  },
+  "imagePreview": {
+    "generating": "生成中...",
+    "configurePrompt": "プロンプトを設定して生成",
+    "generateImage": "画像を生成",
+    "history": "履歴",
+    "networkError": "ネットワークエラー。再試行してください。",
+    "failedToGenerate": "画像の生成に失敗しました"
+  },
+  "jsonPreview": {
+    "importFromFile": "ファイルからインポート:",
+    "orPasteJson": "またはJSONを貼り付け:",
+    "pastePlaceholder": "ここにJSONを貼り付け...",
+    "invalidJson": "無効なJSON形式",
+    "invalidJsonFile": "無効なJSONファイル",
+    "updated": "更新済み"
+  },
+  "language": {
+    "label": "言語",
+    "en": "English",
+    "ja": "日本語"
+  }
+}

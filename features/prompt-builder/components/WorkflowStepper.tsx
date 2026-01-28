@@ -1,11 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Sliders, Globe2, Camera, Layers } from "lucide-react";
 
 export interface Step {
   id: string;
-  label: string;
   icon: React.ReactNode;
   isComplete: boolean;
 }
@@ -21,6 +21,8 @@ export function WorkflowStepper({
   currentStep,
   onStepClick,
 }: WorkflowStepperProps) {
+  const t = useTranslations("sections");
+
   return (
     <div className="w-full">
       {/* Navigation header */}
@@ -62,7 +64,7 @@ export function WorkflowStepper({
                       !isActive && "text-muted-foreground group-hover:text-foreground"
                     )}
                   >
-                    {step.label}
+                    {t(step.id)}
                   </div>
                 </button>
 
@@ -89,22 +91,18 @@ export function WorkflowStepper({
 export const WORKFLOW_STEPS: Omit<Step, "isComplete">[] = [
   {
     id: "meta",
-    label: "Meta",
     icon: <Sliders className="w-5 h-5" />,
   },
   {
     id: "context",
-    label: "Context",
     icon: <Globe2 className="w-5 h-5" />,
   },
   {
     id: "composition",
-    label: "Composition",
     icon: <Camera className="w-5 h-5" />,
   },
   {
     id: "objects",
-    label: "Objects",
     icon: <Layers className="w-5 h-5" />,
   },
 ];
