@@ -101,6 +101,12 @@ export type ObjectCategory =
   | "Environment"
   | "Other";
 
+export interface ReferenceImage {
+  data: string; // base64 encoded image data
+  mimeType: string;
+  name: string;
+}
+
 export interface PromptObject {
   id: string;
   label: string;
@@ -115,6 +121,7 @@ export interface PromptObject {
   interaction_with_light?: InteractionWithLight;
   text_content?: TextContent;
   relationships?: ObjectRelationship[];
+  reference_image?: ReferenceImage;
 }
 
 export interface ImagePrompt {

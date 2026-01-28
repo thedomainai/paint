@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateImage, buildPromptFromJson } from "@/lib/gemini";
+import { generateImage, buildPromptFromJson, type ReferenceImageInput } from "@/lib/gemini";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,9 +15,25 @@ export async function POST(request: NextRequest) {
 
     // Convert structured prompt to text
     const textPrompt = buildPromptFromJson(promptData);
-    
-    // Generate image
-    const result = await generateImage(textPrompt);
+
+    // Extract reference images from objects
+    const referenceImages: ReferenceImageInput[] = [];
+    if (promptData.objects && Array.isArray(promptData.objects)) {
+      for (const obj of promptData.objects) {
+        if (obj.reference_image?.data && obj.reference_image?.mimeType) {
+          referenceImages.push({
+            data: obj.reference_image.data,
+            mimeType: obj.reference_image.mimeType,
+          });
+        }
+      }
+    }
+
+    // Generate image with optional reference images
+    const result = await generateImage(
+      textPrompt,
+      referenceImages.length > 0 ? referenceImages : undefined
+    );
 
     if (!result.success) {
       return NextResponse.json(
@@ -30,6 +46,7 @@ export async function POST(request: NextRequest) {
       success: true,
       image: `data:${result.mimeType};base64,${result.imageBase64}`,
       prompt: textPrompt,
+      hasReferenceImages: referenceImages.length > 0,
     });
   } catch (error) {
     console.error("Generate API error:", error);

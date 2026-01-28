@@ -8,7 +8,15 @@ if (!apiKey) {
 
 const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 
-export async function generateImage(prompt: string): Promise<{
+export interface ReferenceImageInput {
+  data: string;
+  mimeType: string;
+}
+
+export async function generateImage(
+  prompt: string,
+  referenceImages?: ReferenceImageInput[]
+): Promise<{
   success: boolean;
   imageBase64?: string;
   mimeType?: string;
@@ -30,12 +38,33 @@ export async function generateImage(prompt: string): Promise<{
       } as any,
     });
 
-    const response = await model.generateContent(prompt);
+    // Build content parts with text and optional reference images
+    const contentParts: any[] = [];
+
+    // Add reference images first if provided
+    if (referenceImages && referenceImages.length > 0) {
+      for (const img of referenceImages) {
+        contentParts.push({
+          inlineData: {
+            mimeType: img.mimeType,
+            data: img.data,
+          },
+        });
+      }
+      // Add instruction for using reference images
+      contentParts.push({
+        text: `Use the above reference image(s) as visual guidance for the following generation request:\n\n${prompt}`,
+      });
+    } else {
+      contentParts.push({ text: prompt });
+    }
+
+    const response = await model.generateContent(contentParts);
     const result = response.response;
 
     // Extract image from response
     const parts = result.candidates?.[0]?.content?.parts || [];
-    
+
     for (const part of parts) {
       if ((part as any).inlineData) {
         const inlineData = (part as any).inlineData;

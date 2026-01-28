@@ -18,8 +18,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Trash2, Copy } from "lucide-react";
-import type { PromptObject, ObjectCategory } from "../types/prompt";
+import { Trash2, Copy, Upload, X, ImageIcon } from "lucide-react";
+import type { PromptObject, ObjectCategory, ReferenceImage } from "../types/prompt";
 
 const CATEGORIES: ObjectCategory[] = [
   "Person",
@@ -47,6 +47,29 @@ export function ObjectEditor({
   onRemove,
   onDuplicate,
 }: ObjectEditorProps) {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      // Extract base64 data (remove data:image/...;base64, prefix)
+      const base64Data = result.split(",")[1];
+      const referenceImage: ReferenceImage = {
+        data: base64Data,
+        mimeType: file.type,
+        name: file.name,
+      };
+      onUpdate({ reference_image: referenceImage });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    onUpdate({ reference_image: undefined });
+  };
+
   return (
     <div className="border rounded-lg p-4 space-y-4">
       <div className="flex items-center justify-between">
@@ -69,6 +92,41 @@ export function ObjectEditor({
             <Trash2 className="h-4 w-4 text-destructive" />
           </Button>
         </div>
+      </div>
+
+      {/* Reference Image Upload */}
+      <div className="space-y-2">
+        <Label>Reference Image</Label>
+        {object.reference_image ? (
+          <div className="relative inline-block">
+            <img
+              src={`data:${object.reference_image.mimeType};base64,${object.reference_image.data}`}
+              alt="Reference"
+              className="w-24 h-24 object-cover rounded-lg border"
+            />
+            <button
+              type="button"
+              onClick={handleRemoveImage}
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center hover:bg-destructive/90"
+            >
+              <X className="w-4 h-4" />
+            </button>
+            <p className="text-xs text-muted-foreground mt-1 truncate max-w-24">
+              {object.reference_image.name}
+            </p>
+          </div>
+        ) : (
+          <label className="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-muted-foreground/30 rounded-lg cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors">
+            <ImageIcon className="w-6 h-6 text-muted-foreground mb-1" />
+            <span className="text-xs text-muted-foreground">Upload</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </label>
+        )}
       </div>
 
       <div className="grid grid-cols-3 gap-4">
