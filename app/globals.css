@@ -80,3 +80,65 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Neon glow effects */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-orb-1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, oklch(0.7 0.15 280) 0%, oklch(0.6 0.2 320) 100%);
+  top: -100px;
+  right: -100px;
+  animation: float1 20s ease-in-out infinite;
+}
+
+.glow-orb-2 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, oklch(0.65 0.15 200) 0%, oklch(0.55 0.2 240) 100%);
+  bottom: 10%;
+  left: -80px;
+  animation: float2 25s ease-in-out infinite;
+}
+
+.glow-orb-3 {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(135deg, oklch(0.7 0.12 150) 0%, oklch(0.6 0.15 180) 100%);
+  top: 40%;
+  right: 5%;
+  animation: float3 18s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-30px, 40px) scale(1.05); }
+  66% { transform: translate(20px, -20px) scale(0.95); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, 30px) scale(1.08); }
+}
+
+/* Subtle grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(oklch(0.5 0 0 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.5 0 0 / 3%) 1px, transparent 1px);
+  background-size: 40px 40px;
+}

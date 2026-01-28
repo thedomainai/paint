@@ -1,7 +1,6 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -19,6 +18,8 @@ import {
   ATMOSPHERE_OPTIONS,
   LIGHTING_SOURCES,
   LIGHTING_QUALITIES,
+  LIGHTING_DIRECTIONS,
+  COLOR_TEMPERATURES,
 } from "../types/prompt";
 
 interface GlobalContextSectionProps {
@@ -200,16 +201,36 @@ export function GlobalContextSection({
                 </Select>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Input
+                <Select
                   value={globalContext.lighting.direction}
-                  onChange={(e) => onUpdateLighting({ direction: e.target.value })}
-                  placeholder="Direction"
-                />
-                <Input
+                  onValueChange={(value) => onUpdateLighting({ direction: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Direction" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {LIGHTING_DIRECTIONS.map((dir) => (
+                      <SelectItem key={dir} value={dir}>
+                        {dir}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select
                   value={globalContext.lighting.color_temperature}
-                  onChange={(e) => onUpdateLighting({ color_temperature: e.target.value })}
-                  placeholder="Color temperature"
-                />
+                  onValueChange={(value) => onUpdateLighting({ color_temperature: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Color Temp" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COLOR_TEMPERATURES.map((temp) => (
+                      <SelectItem key={temp} value={temp}>
+                        {temp}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </StepItem>

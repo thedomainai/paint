@@ -213,3 +213,48 @@ export const LENS_TYPES = [
   "Fisheye",
   "Tilt-Shift",
 ] as const;
+
+export const LIGHTING_DIRECTIONS = [
+  "Front",
+  "Back (Backlit)",
+  "Left Side",
+  "Right Side",
+  "Top (Overhead)",
+  "Bottom (Underlit)",
+  "45° Key Light",
+  "Rim Light",
+  "Split (Half/Half)",
+] as const;
+
+export const COLOR_TEMPERATURES = [
+  "Warm (2700K - Golden Hour)",
+  "Neutral (4000K - Daylight)",
+  "Cool (5500K - Overcast)",
+  "Cold (6500K+ - Blue Hour)",
+  "Mixed (Warm & Cool)",
+  "Candlelight (1800K)",
+  "Tungsten (3200K)",
+] as const;
+
+export const FOCAL_POINT_OPTIONS = [
+  "Subject's Face",
+  "Subject's Eyes",
+  "Center of Frame",
+  "Foreground Object",
+  "Background Element",
+  "Product/Item",
+  "Text/Logo",
+  "Leading Lines Intersection",
+] as const;
+
+export const RULE_OF_THIRDS_OPTIONS = [
+  "Subject Center",
+  "Subject Left Third",
+  "Subject Right Third",
+  "Subject Upper Third",
+  "Subject Lower Third",
+  "Upper-Left Intersection",
+  "Upper-Right Intersection",
+  "Lower-Left Intersection",
+  "Lower-Right Intersection",
+] as const;

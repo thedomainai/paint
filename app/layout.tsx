@@ -25,7 +25,16 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        {/* Neon glow orbs */}
+        <div className="glow-orb glow-orb-1" aria-hidden="true" />
+        <div className="glow-orb glow-orb-2" aria-hidden="true" />
+        <div className="glow-orb glow-orb-3" aria-hidden="true" />
+        {/* Grid pattern overlay */}
+        <div className="fixed inset-0 grid-pattern pointer-events-none z-0" aria-hidden="true" />
+        {/* Main content */}
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -13,7 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Camera, Focus, LayoutGrid, Move3d, Crosshair, Grid3x3, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ImagePrompt } from "../types/prompt";
-import { CAMERA_ANGLES, FRAMING_OPTIONS } from "../types/prompt";
+import { CAMERA_ANGLES, FRAMING_OPTIONS, FOCAL_POINT_OPTIONS, RULE_OF_THIRDS_OPTIONS } from "../types/prompt";
 
 interface CompositionSectionProps {
   composition: ImagePrompt["composition"];
@@ -177,11 +176,21 @@ export function CompositionSection({
             label="Focal Point"
             isComplete={!!composition.focal_point}
           >
-            <Input
+            <Select
               value={composition.focal_point}
-              onChange={(e) => onUpdate({ focal_point: e.target.value })}
-              placeholder="e.g., Subject's face"
-            />
+              onValueChange={(value) => onUpdate({ focal_point: value })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select focal point..." />
+              </SelectTrigger>
+              <SelectContent>
+                {FOCAL_POINT_OPTIONS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {opt}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </StepItem>
 
           <StepItem
@@ -190,11 +199,21 @@ export function CompositionSection({
             isComplete={!!composition.rule_of_thirds_alignment}
             isLast
           >
-            <Input
+            <Select
               value={composition.rule_of_thirds_alignment}
-              onChange={(e) => onUpdate({ rule_of_thirds_alignment: e.target.value })}
-              placeholder="e.g., Subject centered"
-            />
+              onValueChange={(value) => onUpdate({ rule_of_thirds_alignment: value })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select position..." />
+              </SelectTrigger>
+              <SelectContent>
+                {RULE_OF_THIRDS_OPTIONS.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {opt}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </StepItem>
         </div>
       </CardContent>
