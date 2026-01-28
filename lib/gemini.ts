@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, Part } from "@google/generative-ai";
 
 const apiKey = process.env.GEMINI_API_KEY;
 
@@ -13,15 +13,83 @@ export interface ReferenceImageInput {
   mimeType: string;
 }
 
+export interface GenerateImageSuccess {
+  success: true;
+  imageBase64: string;
+  mimeType: string;
+}
+
+export interface GenerateImageError {
+  success: false;
+  error: string;
+}
+
+export type GenerateImageResult = GenerateImageSuccess | GenerateImageError;
+
+const GEMINI_MODEL = "gemini-2.0-flash-exp-image-generation";
+
+/**
+ * Builds content parts for Gemini API request.
+ * Includes reference images first (if any), followed by the text prompt.
+ */
+function buildContentParts(
+  prompt: string,
+  referenceImages?: ReferenceImageInput[]
+): Part[] {
+  const parts: Part[] = [];
+
+  if (referenceImages && referenceImages.length > 0) {
+    for (const img of referenceImages) {
+      parts.push({
+        inlineData: {
+          mimeType: img.mimeType,
+          data: img.data,
+        },
+      });
+    }
+    parts.push({
+      text: `Use the above reference image(s) as visual guidance. Generate an image based on this specification:\n\n${prompt}`,
+    });
+  } else {
+    parts.push({
+      text: `Generate an image based on this specification:\n\n${prompt}`,
+    });
+  }
+
+  return parts;
+}
+
+/**
+ * Extracts image data from Gemini API response.
+ */
+function extractImageFromResponse(
+  response: any
+): { imageBase64: string; mimeType: string } | null {
+  const parts = response.response?.candidates?.[0]?.content?.parts || [];
+
+  for (const part of parts) {
+    if (part.inlineData) {
+      return {
+        imageBase64: part.inlineData.data,
+        mimeType: part.inlineData.mimeType,
+      };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Generates an image using the Gemini API.
+ *
+ * @param prompt - The text prompt describing the image to generate
+ * @param referenceImages - Optional reference images for visual guidance
+ * @returns Result object with either image data or error message
+ */
 export async function generateImage(
   prompt: string,
   referenceImages?: ReferenceImageInput[]
-): Promise<{
-  success: boolean;
-  imageBase64?: string;
-  mimeType?: string;
-  error?: string;
-}> {
+): Promise<GenerateImageResult> {
   if (!genAI) {
     return {
       success: false,
@@ -30,60 +98,31 @@ export async function generateImage(
   }
 
   try {
-    // Use Gemini 2.0 Flash with image generation
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-exp-image-generation",
+      model: GEMINI_MODEL,
       generationConfig: {
         responseModalities: ["Text", "Image"],
       } as any,
     });
 
-    // Build content parts with JSON prompt and optional reference images
-    const contentParts: any[] = [];
-
-    // Add reference images first if provided
-    if (referenceImages && referenceImages.length > 0) {
-      for (const img of referenceImages) {
-        contentParts.push({
-          inlineData: {
-            mimeType: img.mimeType,
-            data: img.data,
-          },
-        });
-      }
-      // Add instruction for using reference images with JSON prompt
-      contentParts.push({
-        text: `Use the above reference image(s) as visual guidance. Generate an image based on this specification:\n\n${prompt}`,
-      });
-    } else {
-      contentParts.push({
-        text: `Generate an image based on this specification:\n\n${prompt}`
-      });
-    }
-
+    const contentParts = buildContentParts(prompt, referenceImages);
     const response = await model.generateContent(contentParts);
-    const result = response.response;
+    const imageData = extractImageFromResponse(response);
 
-    // Extract image from response
-    const parts = result.candidates?.[0]?.content?.parts || [];
-
-    for (const part of parts) {
-      if ((part as any).inlineData) {
-        const inlineData = (part as any).inlineData;
-        return {
-          success: true,
-          imageBase64: inlineData.data,
-          mimeType: inlineData.mimeType,
-        };
-      }
+    if (!imageData) {
+      return {
+        success: false,
+        error: "No image generated in response",
+      };
     }
 
     return {
-      success: false,
-      error: "No image generated in response",
+      success: true,
+      imageBase64: imageData.imageBase64,
+      mimeType: imageData.mimeType,
     };
   } catch (error) {
-    console.error("Image generation error:", error);
+    console.error("Gemini image generation error:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error occurred",

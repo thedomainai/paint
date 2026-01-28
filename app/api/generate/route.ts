@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateImage, type ReferenceImageInput } from "@/lib/gemini";
+import { generateImageFromPrompt } from "@/lib/services";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,35 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create a clean copy without reference_image data for the prompt
-    const cleanPromptData = JSON.parse(JSON.stringify(promptData));
-    if (cleanPromptData.objects) {
-      for (const obj of cleanPromptData.objects) {
-        delete obj.reference_image;
-      }
-    }
-
-    // Convert to JSON string for Gemini
-    const jsonPrompt = JSON.stringify(cleanPromptData, null, 2);
-
-    // Extract reference images from objects
-    const referenceImages: ReferenceImageInput[] = [];
-    if (promptData.objects && Array.isArray(promptData.objects)) {
-      for (const obj of promptData.objects) {
-        if (obj.reference_image?.data && obj.reference_image?.mimeType) {
-          referenceImages.push({
-            data: obj.reference_image.data,
-            mimeType: obj.reference_image.mimeType,
-          });
-        }
-      }
-    }
-
-    // Generate image with JSON prompt and optional reference images
-    const result = await generateImage(
-      jsonPrompt,
-      referenceImages.length > 0 ? referenceImages : undefined
-    );
+    const result = await generateImageFromPrompt(promptData);
 
     if (!result.success) {
       return NextResponse.json(
@@ -52,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      image: `data:${result.mimeType};base64,${result.imageBase64}`,
+      image: result.image,
     });
   } catch (error) {
     console.error("Generate API error:", error);
