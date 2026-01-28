@@ -37,39 +37,46 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.55 0.2 250);
+  /* Primary: Purple from gradient (#ab57c7) */
+  --primary: oklch(0.58 0.18 320);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(0.97 0.01 320);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --muted: oklch(0.97 0.005 320);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.95 0.02 320);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.55 0.2 250);
+  --border: oklch(0.92 0.01 320);
+  --input: oklch(0.92 0.01 320);
+  --ring: oklch(0.58 0.18 320);
+
+  /* Brand gradient colors */
+  --gradient-start: #e0699d;
+  --gradient-mid: #ab57c7;
+  --gradient-end: #7453ed;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.145 0.01 320);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: oklch(0.205 0.01 320);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.205 0.01 320);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.65 0.2 250);
+  /* Primary: Lighter purple for dark mode */
+  --primary: oklch(0.7 0.18 320);
   --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
+  --secondary: oklch(0.269 0.02 320);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
+  --muted: oklch(0.269 0.01 320);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --accent: oklch(0.3 0.03 320);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.65 0.2 250);
+  --border: oklch(1 0.02 320 / 10%);
+  --input: oklch(1 0.02 320 / 15%);
+  --ring: oklch(0.7 0.18 320);
 }
 
 @layer base {
@@ -94,7 +101,7 @@
 .glow-orb-1 {
   width: 400px;
   height: 400px;
-  background: linear-gradient(135deg, oklch(0.7 0.15 280) 0%, oklch(0.6 0.2 320) 100%);
+  background: linear-gradient(135deg, #e0699d 0%, #ab57c7 100%);
   top: -100px;
   right: -100px;
   animation: float1 20s ease-in-out infinite;
@@ -103,7 +110,7 @@
 .glow-orb-2 {
   width: 300px;
   height: 300px;
-  background: linear-gradient(135deg, oklch(0.65 0.15 200) 0%, oklch(0.55 0.2 240) 100%);
+  background: linear-gradient(135deg, #ab57c7 0%, #7453ed 100%);
   bottom: 10%;
   left: -80px;
   animation: float2 25s ease-in-out infinite;
@@ -112,7 +119,7 @@
 .glow-orb-3 {
   width: 250px;
   height: 250px;
-  background: linear-gradient(135deg, oklch(0.7 0.12 150) 0%, oklch(0.6 0.15 180) 100%);
+  background: linear-gradient(135deg, #7453ed 0%, #e0699d 100%);
   top: 40%;
   right: 5%;
   animation: float3 18s ease-in-out infinite;
@@ -141,4 +148,16 @@
     linear-gradient(oklch(0.5 0 0 / 3%) 1px, transparent 1px),
     linear-gradient(90deg, oklch(0.5 0 0 / 3%) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Brand gradient utility */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+}
+
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
