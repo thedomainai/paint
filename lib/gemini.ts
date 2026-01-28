@@ -38,7 +38,7 @@ export async function generateImage(
       } as any,
     });
 
-    // Build content parts with text and optional reference images
+    // Build content parts with JSON prompt and optional reference images
     const contentParts: any[] = [];
 
     // Add reference images first if provided
@@ -51,12 +51,14 @@ export async function generateImage(
           },
         });
       }
-      // Add instruction for using reference images
+      // Add instruction for using reference images with JSON prompt
       contentParts.push({
-        text: `Use the above reference image(s) as visual guidance for the following generation request:\n\n${prompt}`,
+        text: `Use the above reference image(s) as visual guidance. Generate an image based on this specification:\n\n${prompt}`,
       });
     } else {
-      contentParts.push({ text: prompt });
+      contentParts.push({
+        text: `Generate an image based on this specification:\n\n${prompt}`
+      });
     }
 
     const response = await model.generateContent(contentParts);
@@ -87,64 +89,4 @@ export async function generateImage(
       error: error instanceof Error ? error.message : "Unknown error occurred",
     };
   }
-}
-
-export function buildPromptFromJson(promptData: any): string {
-  const parts: string[] = [];
-
-  // Meta information
-  if (promptData.meta) {
-    const meta = promptData.meta;
-    if (meta.image_type) parts.push(`Style: ${meta.image_type}`);
-    if (meta.image_quality) parts.push(`Quality: ${meta.image_quality}`);
-  }
-
-  // Global context
-  if (promptData.global_context) {
-    const ctx = promptData.global_context;
-    if (ctx.scene_description) parts.push(ctx.scene_description);
-    if (ctx.environment_type) parts.push(`Environment: ${ctx.environment_type}`);
-    if (ctx.weather_atmosphere) parts.push(`Atmosphere: ${ctx.weather_atmosphere}`);
-    
-    if (ctx.lighting) {
-      const light = ctx.lighting;
-      const lightingParts = [light.source, light.quality, light.direction].filter(Boolean);
-      if (lightingParts.length > 0) {
-        parts.push(`Lighting: ${lightingParts.join(", ")}`);
-      }
-    }
-  }
-
-  // Composition
-  if (promptData.composition) {
-    const comp = promptData.composition;
-    const compParts = [
-      comp.camera_angle,
-      comp.framing,
-      comp.depth_of_field,
-    ].filter(Boolean);
-    if (compParts.length > 0) {
-      parts.push(`Composition: ${compParts.join(", ")}`);
-    }
-    if (comp.focal_point) parts.push(`Focal point: ${comp.focal_point}`);
-  }
-
-  // Objects
-  if (promptData.objects && promptData.objects.length > 0) {
-    for (const obj of promptData.objects) {
-      const objParts: string[] = [];
-      if (obj.label) objParts.push(obj.label);
-      if (obj.category) objParts.push(`(${obj.category})`);
-      if (obj.material) objParts.push(`made of ${obj.material}`);
-      if (obj.pose_orientation) objParts.push(obj.pose_orientation);
-      if (obj.location?.relative_position) {
-        objParts.push(`positioned ${obj.location.relative_position}`);
-      }
-      if (objParts.length > 0) {
-        parts.push(objParts.join(" "));
-      }
-    }
-  }
-
-  return parts.join(". ") + ".";
 }

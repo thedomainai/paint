@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 export interface HistoryItem {
   id: string;
   image: string;
-  prompt: string;
   createdAt: number;
 }
 
@@ -40,11 +39,10 @@ export function useImageHistory() {
     }
   }, [history, isLoaded]);
 
-  const addToHistory = (image: string, prompt: string) => {
+  const addToHistory = (image: string) => {
     const newItem: HistoryItem = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       image,
-      prompt,
       createdAt: Date.now(),
     };
 

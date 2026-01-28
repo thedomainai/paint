@@ -16,7 +16,6 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [usedPrompt, setUsedPrompt] = useState<string | null>(null);
   const [selectedHistoryId, setSelectedHistoryId] = useState<string | null>(null);
 
   const { history, addToHistory, removeFromHistory } = useImageHistory();
@@ -43,10 +42,9 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
       }
 
       setGeneratedImage(data.image);
-      setUsedPrompt(data.prompt);
 
       // Add to history
-      const historyItem = addToHistory(data.image, data.prompt);
+      const historyItem = addToHistory(data.image);
       setSelectedHistoryId(historyItem.id);
     } catch (err) {
       setError("Network error. Please try again.");
@@ -69,7 +67,6 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
 
   const handleHistorySelect = (item: HistoryItem) => {
     setGeneratedImage(item.image);
-    setUsedPrompt(item.prompt);
     setSelectedHistoryId(item.id);
     setError(null);
   };
@@ -86,7 +83,6 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
         }
       } else {
         setGeneratedImage(null);
-        setUsedPrompt(null);
       }
     }
   };
@@ -178,14 +174,6 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
           <div className="flex items-center gap-2 p-3 mb-4 rounded-lg bg-destructive/10 text-destructive text-sm">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <p>{error}</p>
-          </div>
-        )}
-
-        {/* Used Prompt Display */}
-        {usedPrompt && !isGenerating && (
-          <div className="p-3 mb-4 rounded-lg bg-muted text-xs text-muted-foreground">
-            <p className="font-medium mb-1">Generated prompt:</p>
-            <p className="line-clamp-3">{usedPrompt}</p>
           </div>
         )}
 
