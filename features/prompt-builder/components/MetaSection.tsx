@@ -1,7 +1,6 @@
 "use client";
 
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -13,7 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Sliders, Sparkles, Image, ScanLine, Aperture, Volume2, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ImagePrompt } from "../types/prompt";
-import { IMAGE_TYPES } from "../types/prompt";
+import { IMAGE_TYPES, RESOLUTION_OPTIONS, LENS_TYPES } from "../types/prompt";
 
 interface MetaSectionProps {
   meta: ImagePrompt["meta"];
@@ -115,11 +114,21 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
             label="Resolution"
             isComplete={!!meta.resolution_estimation}
           >
-            <Input
+            <Select
               value={meta.resolution_estimation}
-              onChange={(e) => onUpdate({ resolution_estimation: e.target.value })}
-              placeholder="e.g., High resolution, sharp edges"
-            />
+              onValueChange={(value) => onUpdate({ resolution_estimation: value })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select resolution..." />
+              </SelectTrigger>
+              <SelectContent>
+                {RESOLUTION_OPTIONS.map((res) => (
+                  <SelectItem key={res} value={res}>
+                    {res}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </StepItem>
 
           <StepItem
@@ -190,18 +199,28 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
             isComplete={!!meta.file_characteristics.lens_type_estimation}
             isLast
           >
-            <Input
+            <Select
               value={meta.file_characteristics.lens_type_estimation}
-              onChange={(e) =>
+              onValueChange={(value) =>
                 onUpdate({
                   file_characteristics: {
                     ...meta.file_characteristics,
-                    lens_type_estimation: e.target.value,
+                    lens_type_estimation: value,
                   },
                 })
               }
-              placeholder="e.g., 50mm standard"
-            />
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select lens type..." />
+              </SelectTrigger>
+              <SelectContent>
+                {LENS_TYPES.map((lens) => (
+                  <SelectItem key={lens} value={lens}>
+                    {lens}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </StepItem>
         </div>
       </CardContent>

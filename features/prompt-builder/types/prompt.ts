@@ -193,3 +193,23 @@ export const ATMOSPHERE_OPTIONS = [
   "Romantic, Soft, Dreamy",
   "Futuristic, Sci-fi, Tech",
 ] as const;
+
+export const RESOLUTION_OPTIONS = [
+  "4K (3840×2160)",
+  "2K (2560×1440)",
+  "Full HD (1920×1080)",
+  "HD (1280×720)",
+  "Square 1:1 (1024×1024)",
+  "Portrait 3:4 (768×1024)",
+  "Landscape 16:9 (1920×1080)",
+] as const;
+
+export const LENS_TYPES = [
+  "Wide Angle (14-35mm)",
+  "Standard (35-50mm)",
+  "Portrait (50-85mm)",
+  "Telephoto (85-200mm)",
+  "Macro",
+  "Fisheye",
+  "Tilt-Shift",
+] as const;
