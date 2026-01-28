@@ -99,7 +99,7 @@ export default function HomePage() {
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10">
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#e0699d] via-[#ab57c7] to-[#7453ed] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-brand-gradient flex items-center justify-center">
               <Paintbrush className="h-5 w-5 text-white" />
             </div>
             <div>

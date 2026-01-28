@@ -101,7 +101,7 @@
 .glow-orb-1 {
   width: 400px;
   height: 400px;
-  background: linear-gradient(135deg, #e0699d 0%, #ab57c7 100%);
+  background: linear-gradient(135deg, rgba(224, 105, 157, 1) 0%, rgba(171, 87, 199, 1) 50%, rgba(116, 83, 237, 1) 100%);
   top: -100px;
   right: -100px;
   animation: float1 20s ease-in-out infinite;
@@ -110,7 +110,7 @@
 .glow-orb-2 {
   width: 300px;
   height: 300px;
-  background: linear-gradient(135deg, #ab57c7 0%, #7453ed 100%);
+  background: linear-gradient(135deg, rgba(171, 87, 199, 1) 0%, rgba(116, 83, 237, 1) 50%, rgba(224, 105, 157, 1) 100%);
   bottom: 10%;
   left: -80px;
   animation: float2 25s ease-in-out infinite;
@@ -119,7 +119,7 @@
 .glow-orb-3 {
   width: 250px;
   height: 250px;
-  background: linear-gradient(135deg, #7453ed 0%, #e0699d 100%);
+  background: linear-gradient(135deg, rgba(116, 83, 237, 1) 0%, rgba(224, 105, 157, 1) 50%, rgba(171, 87, 199, 1) 100%);
   top: 40%;
   right: 5%;
   animation: float3 18s ease-in-out infinite;
@@ -150,13 +150,16 @@
   background-size: 40px 40px;
 }
 
-/* Brand gradient utility */
+/* Brand gradient utility - exact from gradation-color-sample.css */
 .bg-brand-gradient {
-  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+  background: #e0699d;
+  background: -webkit-linear-gradient(135deg, rgba(224, 105, 157, 1) 0%, rgba(171, 87, 199, 1) 50%, rgba(116, 83, 237, 1) 100%);
+  background: -moz-linear-gradient(135deg, rgba(224, 105, 157, 1) 0%, rgba(171, 87, 199, 1) 50%, rgba(116, 83, 237, 1) 100%);
+  background: linear-gradient(135deg, rgba(224, 105, 157, 1) 0%, rgba(171, 87, 199, 1) 50%, rgba(116, 83, 237, 1) 100%);
 }
 
 .text-brand-gradient {
-  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+  background: linear-gradient(135deg, rgba(224, 105, 157, 1) 0%, rgba(171, 87, 199, 1) 50%, rgba(116, 83, 237, 1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
