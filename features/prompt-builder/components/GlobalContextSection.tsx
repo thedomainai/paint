@@ -1,25 +1,23 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
-import { Globe2, Sun, Palette, MapPin, Sparkles, FileText, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Globe2, Sun, Palette, MapPin, Sparkles, FileText } from "lucide-react";
 import type { ImagePrompt } from "../types/prompt";
 import {
   ENVIRONMENT_TYPES,
   ATMOSPHERE_OPTIONS,
   LIGHTING_SOURCES,
   LIGHTING_QUALITIES,
+  LIGHTING_DIRECTIONS,
+  COLOR_TEMPERATURES,
 } from "../types/prompt";
+import {
+  StepItem,
+  ButtonToggleGroup,
+  SelectField,
+  SectionCard,
+  ColorPickerList,
+} from "./ui";
 
 interface GlobalContextSectionProps {
   globalContext: ImagePrompt["global_context"];
@@ -32,37 +30,7 @@ interface GlobalContextSectionProps {
   ) => void;
 }
 
-interface StepItemProps {
-  icon: React.ReactNode;
-  label: string;
-  isComplete: boolean;
-  isLast?: boolean;
-  children: React.ReactNode;
-}
-
-function StepItem({ icon, label, isComplete, isLast, children }: StepItemProps) {
-  return (
-    <div className="flex gap-4">
-      <div className="flex flex-col items-center">
-        <div
-          className={cn(
-            "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all",
-            isComplete
-              ? "bg-primary border-primary text-primary-foreground"
-              : "border-muted-foreground/30 text-muted-foreground"
-          )}
-        >
-          {isComplete ? <Check className="w-5 h-5" /> : icon}
-        </div>
-        {!isLast && <div className="w-0.5 flex-1 bg-border mt-2" />}
-      </div>
-      <div className={cn("flex-1", !isLast && "pb-8")}>
-        <Label className="text-sm font-medium mb-3 block">{label}</Label>
-        {children}
-      </div>
-    </div>
-  );
-}
+const CONTRAST_OPTIONS = ["Low", "Medium", "High"] as const;
 
 export function GlobalContextSection({
   globalContext,
@@ -93,184 +61,109 @@ export function GlobalContextSection({
   };
 
   return (
-    <Card>
-      <CardContent className="pt-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
-            <Globe2 className="w-5 h-5 text-white" />
+    <SectionCard icon={Globe2} title="Context">
+      <div className="pl-2">
+        <StepItem
+          icon={<FileText className="w-5 h-5" />}
+          label="Scene Description"
+          isComplete={!!globalContext.scene_description}
+        >
+          <Textarea
+            value={globalContext.scene_description}
+            onChange={(e) => onUpdate({ scene_description: e.target.value })}
+            placeholder="Describe the overall scene..."
+            rows={3}
+            className="resize-none"
+          />
+        </StepItem>
+
+        <StepItem
+          icon={<MapPin className="w-5 h-5" />}
+          label="Environment"
+          isComplete={!!globalContext.environment_type}
+        >
+          <SelectField
+            value={globalContext.environment_type}
+            onValueChange={(value) => onUpdate({ environment_type: value })}
+            options={ENVIRONMENT_TYPES}
+            placeholder="Select environment..."
+          />
+        </StepItem>
+
+        <StepItem
+          icon={<Sparkles className="w-5 h-5" />}
+          label="Atmosphere"
+          isComplete={!!globalContext.weather_atmosphere}
+        >
+          <SelectField
+            value={globalContext.weather_atmosphere}
+            onValueChange={(value) => onUpdate({ weather_atmosphere: value })}
+            options={ATMOSPHERE_OPTIONS}
+            placeholder="Select atmosphere..."
+          />
+        </StepItem>
+
+        <StepItem
+          icon={<Sun className="w-5 h-5" />}
+          label="Lighting"
+          isComplete={!!globalContext.lighting.source}
+        >
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              <SelectField
+                value={globalContext.lighting.source}
+                onValueChange={(value) => onUpdateLighting({ source: value })}
+                options={LIGHTING_SOURCES}
+                placeholder="Source"
+              />
+              <SelectField
+                value={globalContext.lighting.quality}
+                onValueChange={(value) => onUpdateLighting({ quality: value })}
+                options={LIGHTING_QUALITIES}
+                placeholder="Quality"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <SelectField
+                value={globalContext.lighting.direction}
+                onValueChange={(value) => onUpdateLighting({ direction: value })}
+                options={LIGHTING_DIRECTIONS}
+                placeholder="Direction"
+              />
+              <SelectField
+                value={globalContext.lighting.color_temperature}
+                onValueChange={(value) => onUpdateLighting({ color_temperature: value })}
+                options={COLOR_TEMPERATURES}
+                placeholder="Color Temp"
+              />
+            </div>
           </div>
-          <h2 className="text-lg font-semibold">Context</h2>
-        </div>
+        </StepItem>
 
-        <div className="pl-2">
-          <StepItem
-            icon={<FileText className="w-5 h-5" />}
-            label="Scene Description"
-            isComplete={!!globalContext.scene_description}
-          >
-            <Textarea
-              value={globalContext.scene_description}
-              onChange={(e) => onUpdate({ scene_description: e.target.value })}
-              placeholder="Describe the overall scene..."
-              rows={3}
-              className="resize-none"
+        <StepItem
+          icon={<Palette className="w-5 h-5" />}
+          label="Colors"
+          isComplete={globalContext.color_palette.dominant_hex_estimates.length > 0}
+          isLast
+        >
+          <div className="space-y-4">
+            <ColorPickerList
+              colors={globalContext.color_palette.dominant_hex_estimates}
+              onChange={handleColorChange}
+              onAdd={addDominantColor}
+              onRemove={removeDominantColor}
             />
-          </StepItem>
 
-          <StepItem
-            icon={<MapPin className="w-5 h-5" />}
-            label="Environment"
-            isComplete={!!globalContext.environment_type}
-          >
-            <Select
-              value={globalContext.environment_type}
-              onValueChange={(value) => onUpdate({ environment_type: value })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select environment..." />
-              </SelectTrigger>
-              <SelectContent>
-                {ENVIRONMENT_TYPES.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {type}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </StepItem>
-
-          <StepItem
-            icon={<Sparkles className="w-5 h-5" />}
-            label="Atmosphere"
-            isComplete={!!globalContext.weather_atmosphere}
-          >
-            <Select
-              value={globalContext.weather_atmosphere}
-              onValueChange={(value) => onUpdate({ weather_atmosphere: value })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select atmosphere..." />
-              </SelectTrigger>
-              <SelectContent>
-                {ATMOSPHERE_OPTIONS.map((option) => (
-                  <SelectItem key={option} value={option}>
-                    {option}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </StepItem>
-
-          <StepItem
-            icon={<Sun className="w-5 h-5" />}
-            label="Lighting"
-            isComplete={!!globalContext.lighting.source}
-          >
-            <div className="space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <Select
-                  value={globalContext.lighting.source}
-                  onValueChange={(value) => onUpdateLighting({ source: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Source" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {LIGHTING_SOURCES.map((source) => (
-                      <SelectItem key={source} value={source}>
-                        {source}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Select
-                  value={globalContext.lighting.quality}
-                  onValueChange={(value) => onUpdateLighting({ quality: value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Quality" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {LIGHTING_QUALITIES.map((quality) => (
-                      <SelectItem key={quality} value={quality}>
-                        {quality}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <Input
-                  value={globalContext.lighting.direction}
-                  onChange={(e) => onUpdateLighting({ direction: e.target.value })}
-                  placeholder="Direction"
-                />
-                <Input
-                  value={globalContext.lighting.color_temperature}
-                  onChange={(e) => onUpdateLighting({ color_temperature: e.target.value })}
-                  placeholder="Color temperature"
-                />
-              </div>
-            </div>
-          </StepItem>
-
-          <StepItem
-            icon={<Palette className="w-5 h-5" />}
-            label="Colors"
-            isComplete={globalContext.color_palette.dominant_hex_estimates.length > 0}
-            isLast
-          >
-            <div className="space-y-4">
-              <div className="flex flex-wrap gap-2">
-                {globalContext.color_palette.dominant_hex_estimates.map(
-                  (color, index) => (
-                    <div key={index} className="relative group">
-                      <input
-                        type="color"
-                        value={color}
-                        onChange={(e) => handleColorChange(index, e.target.value)}
-                        className="w-12 h-12 rounded-lg border-2 border-muted cursor-pointer"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeDominantColor(index)}
-                        className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-destructive text-destructive-foreground text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  )
-                )}
-                <button
-                  type="button"
-                  onClick={addDominantColor}
-                  className="w-12 h-12 rounded-lg border-2 border-dashed border-muted-foreground/30 flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-colors"
-                >
-                  +
-                </button>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2">
-                {(["Low", "Medium", "High"] as const).map((level) => (
-                  <button
-                    key={level}
-                    type="button"
-                    onClick={() => onUpdateColorPalette({ contrast_level: level })}
-                    className={cn(
-                      "py-2 px-3 rounded-lg border-2 text-sm transition-all",
-                      globalContext.color_palette.contrast_level === level
-                        ? "border-primary bg-primary/10 text-primary"
-                        : "border-muted hover:border-muted-foreground/50"
-                    )}
-                  >
-                    {level}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </StepItem>
-        </div>
-      </CardContent>
-    </Card>
+            <ButtonToggleGroup
+              options={CONTRAST_OPTIONS}
+              value={globalContext.color_palette.contrast_level}
+              onChange={(value) => onUpdateColorPalette({ contrast_level: value })}
+              columns={3}
+              size="sm"
+            />
+          </div>
+        </StepItem>
+      </div>
+    </SectionCard>
   );
 }

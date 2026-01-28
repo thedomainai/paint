@@ -9,6 +9,7 @@ import {
   CompositionSection,
   ObjectsSection,
   JsonPreview,
+  ImagePreview,
   WorkflowStepper,
   WORKFLOW_STEPS,
   usePromptBuilder,
@@ -98,8 +99,8 @@ export default function HomePage() {
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10">
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-              <Paintbrush className="h-5 w-5 text-primary-foreground" />
+            <div className="w-9 h-9 rounded-lg bg-brand-gradient flex items-center justify-center">
+              <Paintbrush className="h-5 w-5 text-white" />
             </div>
             <div>
               <h1 className="text-lg font-bold leading-none">Paint</h1>
@@ -168,8 +169,9 @@ export default function HomePage() {
           </div>
 
           {/* Right Panel - Preview */}
-          <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-20">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="lg:sticky lg:top-20 space-y-6">
+              <ImagePreview prompt={prompt} />
               <JsonPreview prompt={prompt} onLoad={loadPrompt} />
             </div>
           </div>

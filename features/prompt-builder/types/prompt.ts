@@ -101,6 +101,12 @@ export type ObjectCategory =
   | "Environment"
   | "Other";
 
+export interface ReferenceImage {
+  data: string; // base64 encoded image data
+  mimeType: string;
+  name: string;
+}
+
 export interface PromptObject {
   id: string;
   label: string;
@@ -115,6 +121,7 @@ export interface PromptObject {
   interaction_with_light?: InteractionWithLight;
   text_content?: TextContent;
   relationships?: ObjectRelationship[];
+  reference_image?: ReferenceImage;
 }
 
 export interface ImagePrompt {
@@ -192,4 +199,69 @@ export const ATMOSPHERE_OPTIONS = [
   "Professional, Corporate, Clean",
   "Romantic, Soft, Dreamy",
   "Futuristic, Sci-fi, Tech",
+] as const;
+
+export const RESOLUTION_OPTIONS = [
+  "4K (3840×2160)",
+  "2K (2560×1440)",
+  "Full HD (1920×1080)",
+  "HD (1280×720)",
+  "Square 1:1 (1024×1024)",
+  "Portrait 3:4 (768×1024)",
+  "Landscape 16:9 (1920×1080)",
+] as const;
+
+export const LENS_TYPES = [
+  "Wide Angle (14-35mm)",
+  "Standard (35-50mm)",
+  "Portrait (50-85mm)",
+  "Telephoto (85-200mm)",
+  "Macro",
+  "Fisheye",
+  "Tilt-Shift",
+] as const;
+
+export const LIGHTING_DIRECTIONS = [
+  "Front",
+  "Back (Backlit)",
+  "Left Side",
+  "Right Side",
+  "Top (Overhead)",
+  "Bottom (Underlit)",
+  "45° Key Light",
+  "Rim Light",
+  "Split (Half/Half)",
+] as const;
+
+export const COLOR_TEMPERATURES = [
+  "Warm (2700K - Golden Hour)",
+  "Neutral (4000K - Daylight)",
+  "Cool (5500K - Overcast)",
+  "Cold (6500K+ - Blue Hour)",
+  "Mixed (Warm & Cool)",
+  "Candlelight (1800K)",
+  "Tungsten (3200K)",
+] as const;
+
+export const FOCAL_POINT_OPTIONS = [
+  "Subject's Face",
+  "Subject's Eyes",
+  "Center of Frame",
+  "Foreground Object",
+  "Background Element",
+  "Product/Item",
+  "Text/Logo",
+  "Leading Lines Intersection",
+] as const;
+
+export const RULE_OF_THIRDS_OPTIONS = [
+  "Subject Center",
+  "Subject Left Third",
+  "Subject Right Third",
+  "Subject Upper Third",
+  "Subject Lower Third",
+  "Upper-Left Intersection",
+  "Upper-Right Intersection",
+  "Lower-Left Intersection",
+  "Lower-Right Intersection",
 ] as const;

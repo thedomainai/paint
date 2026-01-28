@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Check, Sliders, Globe2, Camera, Layers } from "lucide-react";
+import { Sliders, Globe2, Camera, Layers } from "lucide-react";
 
 export interface Step {
   id: string;
@@ -23,61 +23,61 @@ export function WorkflowStepper({
 }: WorkflowStepperProps) {
   return (
     <div className="w-full">
-      {/* Progress bar */}
+      {/* Navigation header */}
       <div className="relative mb-8">
-        <div className="absolute top-5 left-0 right-0 h-0.5 bg-muted">
-          <div
-            className="h-full bg-primary transition-all duration-500 ease-out"
-            style={{
-              width: `${(currentStep / (steps.length - 1)) * 100}%`,
-            }}
-          />
-        </div>
-
         {/* Steps */}
         <div className="relative flex justify-between">
           {steps.map((step, index) => {
             const isActive = index === currentStep;
             const isCompleted = step.isComplete || index < currentStep;
+            const isLast = index === steps.length - 1;
 
             return (
-              <button
-                key={step.id}
-                type="button"
-                onClick={() => onStepClick(index)}
-                className={cn(
-                  "flex flex-col items-center gap-2 group",
-                  "transition-all duration-200"
-                )}
-              >
-                {/* Circle */}
-                <div
+              <div key={step.id} className="flex items-center flex-1 last:flex-none">
+                <button
+                  type="button"
+                  onClick={() => onStepClick(index)}
                   className={cn(
-                    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
-                    "border-2 bg-background",
-                    isActive && "border-primary bg-primary text-primary-foreground scale-110 shadow-lg",
-                    isCompleted && !isActive && "border-primary bg-primary/10 text-primary",
-                    !isActive && !isCompleted && "border-muted-foreground/30 text-muted-foreground"
+                    "flex flex-col items-center gap-2 group",
+                    "transition-all duration-200"
                   )}
                 >
-                  {isCompleted && !isActive ? (
-                    <Check className="w-5 h-5" />
-                  ) : (
+                  {/* Circle - always shows icon */}
+                  <div
+                    className={cn(
+                      "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
+                      isActive && "bg-brand-gradient text-white scale-110 shadow-lg",
+                      isCompleted && !isActive && "bg-brand-gradient text-white opacity-60",
+                      !isActive && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground bg-background"
+                    )}
+                  >
                     <span className="w-5 h-5">{step.icon}</span>
-                  )}
-                </div>
+                  </div>
 
-                {/* Label */}
-                <div
-                  className={cn(
-                    "text-sm font-medium transition-colors",
-                    isActive && "text-primary",
-                    !isActive && "text-muted-foreground group-hover:text-foreground"
-                  )}
-                >
-                  {step.label}
-                </div>
-              </button>
+                  {/* Label */}
+                  <div
+                    className={cn(
+                      "text-sm font-medium transition-colors",
+                      isActive && "text-brand-gradient",
+                      !isActive && "text-muted-foreground group-hover:text-foreground"
+                    )}
+                  >
+                    {step.label}
+                  </div>
+                </button>
+
+                {/* Connector line between steps */}
+                {!isLast && (
+                  <div className="flex-1 h-0.5 mx-2 mt-[-24px]">
+                    <div
+                      className={cn(
+                        "h-full transition-all duration-500",
+                        index < currentStep ? "bg-brand-gradient" : "bg-muted"
+                      )}
+                    />
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
