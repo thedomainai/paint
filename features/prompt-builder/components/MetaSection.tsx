@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Sliders, Sparkles, Image, ScanLine, Aperture, Volume2 } from "lucide-react";
 import type { ImagePrompt } from "../types/prompt";
 import { IMAGE_TYPES, RESOLUTION_OPTIONS, LENS_TYPES } from "../types/prompt";
@@ -15,16 +16,23 @@ const COMPRESSION_OPTIONS = ["None", "Low", "Medium", "High"] as const;
 const NOISE_OPTIONS = ["None", "Low", "Medium", "High"] as const;
 
 export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
+  const t = useTranslations("meta");
+  const tc = useTranslations("common");
+  const ts = useTranslations("sections");
+
+  const qualityLabels = [tc("low"), tc("medium"), tc("high"), t("ultra")] as const;
+  const levelLabels = [tc("none"), tc("low"), tc("medium"), tc("high")] as const;
+
   return (
-    <SectionCard icon={Sliders} title="Meta">
+    <SectionCard icon={Sliders} title={ts("meta")}>
       <div className="pl-2">
         <StepItem
           icon={<Sparkles className="w-5 h-5" />}
-          label="Image Quality"
+          label={t("imageQuality")}
           isComplete={!!meta.image_quality}
         >
           <ButtonToggleGroup
-            options={QUALITY_OPTIONS}
+            options={QUALITY_OPTIONS.map((opt, i) => ({ value: opt, label: qualityLabels[i] }))}
             value={meta.image_quality}
             onChange={(value) => onUpdate({ image_quality: value })}
           />
@@ -32,38 +40,38 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
 
         <StepItem
           icon={<Image className="w-5 h-5" />}
-          label="Image Type"
+          label={t("imageType")}
           isComplete={!!meta.image_type}
         >
           <SelectField
             value={meta.image_type}
             onValueChange={(value) => onUpdate({ image_type: value })}
             options={IMAGE_TYPES}
-            placeholder="Select type..."
+            placeholder={t("selectType")}
             className="w-full"
           />
         </StepItem>
 
         <StepItem
           icon={<ScanLine className="w-5 h-5" />}
-          label="Resolution"
+          label={t("resolution")}
           isComplete={!!meta.resolution_estimation}
         >
           <SelectField
             value={meta.resolution_estimation}
             onValueChange={(value) => onUpdate({ resolution_estimation: value })}
             options={RESOLUTION_OPTIONS}
-            placeholder="Select resolution..."
+            placeholder={t("selectResolution")}
           />
         </StepItem>
 
         <StepItem
           icon={<span className="text-xs font-mono">JPG</span>}
-          label="Compression"
+          label={t("compression")}
           isComplete={meta.file_characteristics.compression_artifacts !== "Low"}
         >
           <ButtonToggleGroup
-            options={COMPRESSION_OPTIONS}
+            options={COMPRESSION_OPTIONS.map((opt, i) => ({ value: opt, label: levelLabels[i] }))}
             value={meta.file_characteristics.compression_artifacts}
             onChange={(value) =>
               onUpdate({
@@ -79,11 +87,11 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
 
         <StepItem
           icon={<Volume2 className="w-5 h-5" />}
-          label="Noise"
+          label={t("noise")}
           isComplete={meta.file_characteristics.noise_level !== "None"}
         >
           <ButtonToggleGroup
-            options={NOISE_OPTIONS}
+            options={NOISE_OPTIONS.map((opt, i) => ({ value: opt, label: levelLabels[i] }))}
             value={meta.file_characteristics.noise_level}
             onChange={(value) =>
               onUpdate({
@@ -99,7 +107,7 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
 
         <StepItem
           icon={<Aperture className="w-5 h-5" />}
-          label="Lens"
+          label={t("lens")}
           isComplete={!!meta.file_characteristics.lens_type_estimation}
           isLast
         >
@@ -114,7 +122,7 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
               })
             }
             options={LENS_TYPES}
-            placeholder="Select lens type..."
+            placeholder={t("selectLens")}
           />
         </StepItem>
       </div>

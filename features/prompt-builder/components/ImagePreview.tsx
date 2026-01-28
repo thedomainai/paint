@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, Download, Loader2, ImageIcon, AlertCircle, Trash2, History } from "lucide-react";
@@ -13,6 +14,9 @@ interface ImagePreviewProps {
 }
 
 export function ImagePreview({ prompt }: ImagePreviewProps) {
+  const t = useTranslations("imagePreview");
+  const tc = useTranslations("common");
+  const ts = useTranslations("sections");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +41,7 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
       const data = await response.json();
 
       if (!data.success) {
-        setError(data.error || "Failed to generate image");
+        setError(data.error || t("failedToGenerate"));
         return;
       }
 
@@ -47,7 +51,7 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
       const historyItem = addToHistory(data.image);
       setSelectedHistoryId(historyItem.id);
     } catch (err) {
-      setError("Network error. Please try again.");
+      setError(t("networkError"));
     } finally {
       setIsGenerating(false);
     }
@@ -95,12 +99,12 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
             <div className="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
-            <h2 className="text-lg font-semibold">Generate</h2>
+            <h2 className="text-lg font-semibold">{ts("generate")}</h2>
           </div>
           {generatedImage && (
             <Button variant="outline" size="sm" onClick={() => handleDownload()}>
               <Download className="w-4 h-4 mr-1" />
-              Download
+              {tc("download")}
             </Button>
           )}
         </div>
@@ -112,7 +116,7 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
             <div className="w-20 flex-shrink-0">
               <div className="flex items-center gap-1 mb-2 text-xs text-muted-foreground">
                 <History className="w-3 h-3" />
-                <span>History</span>
+                <span>{t("history")}</span>
               </div>
               <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
                 {history.map((item) => (
@@ -149,7 +153,7 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
               {isGenerating ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                   <Loader2 className="w-10 h-10 text-primary animate-spin" />
-                  <p className="text-sm text-muted-foreground">Generating...</p>
+                  <p className="text-sm text-muted-foreground">{t("generating")}</p>
                 </div>
               ) : generatedImage ? (
                 <img
@@ -161,7 +165,7 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                   <ImageIcon className="w-12 h-12 text-muted-foreground/50" />
                   <p className="text-sm text-muted-foreground">
-                    Configure prompt and generate
+                    {t("configurePrompt")}
                   </p>
                 </div>
               )}
@@ -187,12 +191,12 @@ export function ImagePreview({ prompt }: ImagePreviewProps) {
           {isGenerating ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Generating...
+              {t("generating")}
             </>
           ) : (
             <>
               <Sparkles className="w-4 h-4 mr-2" />
-              Generate Image
+              {t("generateImage")}
             </>
           )}
         </Button>

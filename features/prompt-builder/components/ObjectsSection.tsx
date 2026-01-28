@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Plus, Layers, User, Shirt, ImageIcon } from "lucide-react";
 import type { PromptObject } from "../types/prompt";
@@ -14,12 +15,6 @@ interface ObjectsSectionProps {
   onDuplicate: (id: string) => void;
 }
 
-const QUICK_ADD_TEMPLATES = [
-  { label: "Person", icon: User },
-  { label: "Apparel", icon: Shirt },
-  { label: "Graphic", icon: ImageIcon },
-];
-
 export function ObjectsSection({
   objects,
   onAdd,
@@ -27,8 +22,18 @@ export function ObjectsSection({
   onRemove,
   onDuplicate,
 }: ObjectsSectionProps) {
+  const t = useTranslations("objects");
+  const tc = useTranslations("common");
+  const ts = useTranslations("sections");
+
+  const QUICK_ADD_TEMPLATES = [
+    { label: t("person"), icon: User },
+    { label: t("apparel"), icon: Shirt },
+    { label: t("graphic"), icon: ImageIcon },
+  ];
+
   return (
-    <SectionCard icon={Layers} title="Objects">
+    <SectionCard icon={Layers} title={ts("objects")}>
       {/* Quick add buttons */}
       <div className="flex flex-wrap gap-2 mb-6">
         {QUICK_ADD_TEMPLATES.map((template) => (
@@ -45,7 +50,7 @@ export function ObjectsSection({
         ))}
         <Button onClick={onAdd} size="sm" className="gap-1 ml-auto">
           <Plus className="h-4 w-4" />
-          Add
+          {tc("add")}
         </Button>
       </div>
 
@@ -55,11 +60,11 @@ export function ObjectsSection({
           <div className="text-center py-12 border-2 border-dashed rounded-lg">
             <Layers className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
             <p className="text-sm text-muted-foreground mb-4">
-              No objects added
+              {t("noObjects")}
             </p>
             <Button onClick={onAdd} size="sm">
               <Plus className="h-4 w-4 mr-1" />
-              Add Object
+              {t("addObject")}
             </Button>
           </div>
         ) : (

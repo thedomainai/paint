@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +16,9 @@ interface JsonPreviewProps {
 }
 
 export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
+  const t = useTranslations("jsonPreview");
+  const tc = useTranslations("common");
+  const ts = useTranslations("sections");
   const [copied, setCopied] = useState(false);
   const [importText, setImportText] = useState("");
   const [showImport, setShowImport] = useState(false);
@@ -68,7 +72,7 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
       setImportText("");
       setError(null);
     } catch {
-      setError("Invalid JSON format");
+      setError(t("invalidJson"));
     }
   };
 
@@ -84,7 +88,7 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
         setShowImport(false);
         setError(null);
       } catch {
-        setError("Invalid JSON file");
+        setError(t("invalidJsonFile"));
       }
     };
     reader.readAsText(file);
@@ -111,7 +115,7 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
               <Code className="w-5 h-5" />
             </div>
             <CardTitle className="text-lg flex items-center gap-2">
-              JSON
+              {ts("json")}
               {isUpdating && (
                 <Sparkles className="w-4 h-4 text-primary animate-spin" />
               )}
@@ -141,16 +145,16 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
         {/* Stats badges */}
         <div className="flex flex-wrap gap-2 mt-3">
           <Badge variant={stats.meta ? "default" : "outline"} className="text-xs">
-            Meta {stats.meta ? "✓" : "○"}
+            {ts("meta")} {stats.meta ? "✓" : "○"}
           </Badge>
           <Badge variant={stats.context ? "default" : "outline"} className="text-xs">
-            Context {stats.context ? "✓" : "○"}
+            {ts("context")} {stats.context ? "✓" : "○"}
           </Badge>
           <Badge variant={stats.composition ? "default" : "outline"} className="text-xs">
-            Composition {stats.composition ? "✓" : "○"}
+            {ts("composition")} {stats.composition ? "✓" : "○"}
           </Badge>
           <Badge variant={stats.objects > 0 ? "default" : "outline"} className="text-xs">
-            Objects ({stats.objects})
+            {ts("objects")} ({stats.objects})
           </Badge>
         </div>
 
@@ -169,7 +173,7 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
         {showImport && (
           <div className="space-y-3 p-4 border rounded-lg bg-muted/50 animate-in slide-in-from-top-2 duration-200">
             <div className="flex items-center gap-2">
-              <label className="text-sm font-medium">Import from file:</label>
+              <label className="text-sm font-medium">{t("importFromFile")}</label>
               <input
                 type="file"
                 accept=".json"
@@ -177,17 +181,17 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
                 className="text-sm"
               />
             </div>
-            <div className="text-sm font-medium">Or paste JSON:</div>
+            <div className="text-sm font-medium">{t("orPasteJson")}</div>
             <Textarea
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
-              placeholder="Paste JSON here..."
+              placeholder={t("pastePlaceholder")}
               rows={4}
               className="font-mono text-xs"
             />
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button onClick={handleImport} size="sm">
-              Load
+              {tc("load")}
             </Button>
           </div>
         )}
@@ -209,7 +213,7 @@ export function JsonPreview({ prompt, onLoad }: JsonPreviewProps) {
               <div className="absolute top-2 right-2">
                 <Badge className="animate-pulse bg-primary">
                   <Sparkles className="w-3 h-3 mr-1" />
-                  Updated
+                  {t("updated")}
                 </Badge>
               </div>
             </div>

@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "title": "Paint - Image Prompt Builder",
+    "description": "Build structured image generation prompts with a visual interface"
+  },
+  "common": {
+    "reset": "Reset",
+    "previous": "Previous",
+    "next": "Next",
+    "add": "Add",
+    "load": "Load",
+    "download": "Download",
+    "copy": "Copy",
+    "upload": "Upload",
+    "select": "Select...",
+    "delete": "Delete",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "none": "None"
+  },
+  "header": {
+    "title": "Paint",
+    "subtitle": "Image Prompt Builder"
+  },
+  "footer": {
+    "description": "Build structured image generation prompts for AI models"
+  },
+  "sections": {
+    "meta": "Meta",
+    "context": "Context",
+    "composition": "Composition",
+    "objects": "Objects",
+    "generate": "Generate",
+    "json": "JSON"
+  },
+  "meta": {
+    "imageQuality": "Image Quality",
+    "imageType": "Image Type",
+    "resolution": "Resolution",
+    "compression": "Compression",
+    "noise": "Noise",
+    "lens": "Lens",
+    "selectType": "Select type...",
+    "selectResolution": "Select resolution...",
+    "selectLens": "Select lens type...",
+    "ultra": "Ultra"
+  },
+  "context": {
+    "sceneDescription": "Scene Description",
+    "sceneDescriptionPlaceholder": "Describe the overall scene...",
+    "environment": "Environment",
+    "selectEnvironment": "Select environment...",
+    "atmosphere": "Atmosphere",
+    "selectAtmosphere": "Select atmosphere...",
+    "lighting": "Lighting",
+    "lightingSource": "Source",
+    "lightingQuality": "Quality",
+    "lightingDirection": "Direction",
+    "colorTemperature": "Color Temp",
+    "colors": "Colors"
+  },
+  "composition": {
+    "cameraAngle": "Camera Angle",
+    "selectAngle": "Select angle...",
+    "framing": "Framing",
+    "selectFraming": "Select framing...",
+    "depthOfField": "Depth of Field",
+    "shallow": "Shallow",
+    "deep": "Deep",
+    "symmetry": "Symmetry",
+    "symmetrical": "Symmetrical",
+    "asymmetrical": "Asymmetrical",
+    "radial": "Radial",
+    "focalPoint": "Focal Point",
+    "selectFocalPoint": "Select focal point...",
+    "ruleOfThirds": "Rule of Thirds",
+    "selectPosition": "Select position..."
+  },
+  "objects": {
+    "title": "Objects",
+    "noObjects": "No objects added",
+    "addObject": "Add Object",
+    "objectLabel": "Object label",
+    "referenceImage": "Reference Image",
+    "category": "Category",
+    "size": "Size",
+    "small": "Small",
+    "large": "Large",
+    "distanceFromCamera": "Distance from Camera",
+    "close": "Close",
+    "mid": "Mid",
+    "far": "Far",
+    "overlay": "Zero (Overlay)",
+    "behind": "Behind Subject",
+    "locationBoundingBox": "Location & Bounding Box",
+    "relativePosition": "Relative Position",
+    "relativePositionPlaceholder": "e.g., Center, Upper Left",
+    "xPosition": "X Position",
+    "yPosition": "Y Position",
+    "width": "Width",
+    "height": "Height",
+    "materialSurface": "Material & Surface",
+    "material": "Material",
+    "materialPlaceholder": "e.g., Leather, Cotton, Digital Vector",
+    "reflectivity": "Reflectivity",
+    "texture": "Texture",
+    "texturePlaceholder": "e.g., Smooth, Rough, Woven",
+    "microDetails": "Micro Details",
+    "microDetailsPlaceholder": "Fine details visible on the surface...",
+    "colorDetails": "Color Details",
+    "baseColor": "Base Color",
+    "gradientPattern": "Gradient/Pattern",
+    "gradientPatternPlaceholder": "e.g., Solid, Striped, Gradient",
+    "poseOrientation": "Pose & Orientation",
+    "posePlaceholder": "Describe the pose or orientation...",
+    "person": "Person",
+    "apparel": "Apparel",
+    "graphic": "Graphic"
+  },
+  "imagePreview": {
+    "generating": "Generating...",
+    "configurePrompt": "Configure prompt and generate",
+    "generateImage": "Generate Image",
+    "history": "History",
+    "networkError": "Network error. Please try again.",
+    "failedToGenerate": "Failed to generate image"
+  },
+  "jsonPreview": {
+    "importFromFile": "Import from file:",
+    "orPasteJson": "Or paste JSON:",
+    "pastePlaceholder": "Paste JSON here...",
+    "invalidJson": "Invalid JSON format",
+    "invalidJsonFile": "Invalid JSON file",
+    "updated": "Updated"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "ja": "Japanese"
+  }
+}
