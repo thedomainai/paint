@@ -31,7 +31,7 @@ export function ObjectsSection({
     <Card>
       <CardContent className="pt-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center">
             <Layers className="w-5 h-5 text-white" />
           </div>
           <h2 className="text-lg font-semibold">Objects</h2>

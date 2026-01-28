@@ -33,10 +33,10 @@ function StepItem({ icon, label, isComplete, isLast, children }: StepItemProps) 
       <div className="flex flex-col items-center">
         <div
           className={cn(
-            "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all",
+            "w-10 h-10 rounded-full flex items-center justify-center transition-all",
             isComplete
-              ? "bg-primary border-primary text-primary-foreground"
-              : "border-muted-foreground/30 text-muted-foreground"
+              ? "bg-brand-gradient text-white"
+              : "border-2 border-muted-foreground/30 text-muted-foreground"
           )}
         >
           {isComplete ? <Check className="w-5 h-5" /> : icon}
@@ -72,7 +72,7 @@ export function CompositionSection({
     <Card>
       <CardContent className="pt-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center">
             <Camera className="w-5 h-5 text-white" />
           </div>
           <h2 className="text-lg font-semibold">Composition</h2>

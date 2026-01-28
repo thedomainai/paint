@@ -27,7 +27,7 @@ export function WorkflowStepper({
       <div className="relative mb-8">
         <div className="absolute top-5 left-0 right-0 h-0.5 bg-muted">
           <div
-            className="h-full bg-primary transition-all duration-500 ease-out"
+            className="h-full bg-brand-gradient transition-all duration-500 ease-out"
             style={{
               width: `${(currentStep / (steps.length - 1)) * 100}%`,
             }}
@@ -54,10 +54,9 @@ export function WorkflowStepper({
                 <div
                   className={cn(
                     "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300",
-                    "border-2 bg-background",
-                    isActive && "border-primary bg-primary text-primary-foreground scale-110 shadow-lg",
-                    isCompleted && !isActive && "border-primary bg-primary/10 text-primary",
-                    !isActive && !isCompleted && "border-muted-foreground/30 text-muted-foreground"
+                    isActive && "bg-brand-gradient text-white scale-110 shadow-lg",
+                    isCompleted && !isActive && "bg-brand-gradient/20 text-[#ab57c7] border-2 border-[#ab57c7]/30",
+                    !isActive && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground bg-background"
                   )}
                 >
                   {isCompleted && !isActive ? (
@@ -71,7 +70,7 @@ export function WorkflowStepper({
                 <div
                   className={cn(
                     "text-sm font-medium transition-colors",
-                    isActive && "text-primary",
+                    isActive && "text-brand-gradient",
                     !isActive && "text-muted-foreground group-hover:text-foreground"
                   )}
                 >
