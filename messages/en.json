@@ -138,5 +138,158 @@
     "label": "Language",
     "en": "English",
     "ja": "Japanese"
+  },
+  "options": {
+    "imageTypes": {
+      "Photography": "Photography",
+      "Digital Illustration": "Digital Illustration",
+      "Mixed Media (Photography combined with Digital Illustration/Collage)": "Mixed Media (Photography + Illustration/Collage)",
+      "3D Render": "3D Render",
+      "Vector Art": "Vector Art",
+      "Painting Style": "Painting Style",
+      "Anime/Manga Style": "Anime/Manga Style"
+    },
+    "cameraAngles": {
+      "Eye-level": "Eye-level",
+      "Low-angle (looking up at subject)": "Low-angle (looking up)",
+      "High-angle (looking down at subject)": "High-angle (looking down)",
+      "Bird's eye view": "Bird's eye view",
+      "Worm's eye view": "Worm's eye view",
+      "Dutch angle": "Dutch angle",
+      "Over-the-shoulder": "Over-the-shoulder"
+    },
+    "framingOptions": {
+      "Extreme Close-up": "Extreme Close-up",
+      "Close-up (Face)": "Close-up (Face)",
+      "Medium Close-up (Head and Shoulders)": "Medium Close-up (Head & Shoulders)",
+      "Medium Shot (Waist up)": "Medium Shot (Waist up)",
+      "Medium Full Shot (Knees up)": "Medium Full Shot (Knees up)",
+      "Full Shot (Head to Toe)": "Full Shot (Head to Toe)",
+      "Wide Shot": "Wide Shot",
+      "Extreme Wide Shot": "Extreme Wide Shot"
+    },
+    "lightingSources": {
+      "Natural Sunlight": "Natural Sunlight",
+      "Artificial Studio Lighting": "Artificial Studio Lighting",
+      "Mixed (Natural + Artificial)": "Mixed (Natural + Artificial)",
+      "Window Light": "Window Light",
+      "Neon/Colored Lighting": "Neon/Colored Lighting",
+      "Ambient/Soft Lighting": "Ambient/Soft Lighting",
+      "Dramatic/High Contrast": "Dramatic/High Contrast"
+    },
+    "lightingQualities": {
+      "Soft, Diffused": "Soft, Diffused",
+      "Hard, Directional": "Hard, Directional",
+      "Rim/Backlit": "Rim/Backlit",
+      "Flat": "Flat",
+      "Dramatic": "Dramatic",
+      "Natural": "Natural"
+    },
+    "lightingDirections": {
+      "Front": "Front",
+      "Back (Backlit)": "Back (Backlit)",
+      "Left Side": "Left Side",
+      "Right Side": "Right Side",
+      "Top (Overhead)": "Top (Overhead)",
+      "Bottom (Underlit)": "Bottom (Underlit)",
+      "45° Key Light": "45° Key Light",
+      "Rim Light": "Rim Light",
+      "Split (Half/Half)": "Split (Half/Half)"
+    },
+    "colorTemperatures": {
+      "Warm (2700K - Golden Hour)": "Warm (2700K - Golden Hour)",
+      "Neutral (4000K - Daylight)": "Neutral (4000K - Daylight)",
+      "Cool (5500K - Overcast)": "Cool (5500K - Overcast)",
+      "Cold (6500K+ - Blue Hour)": "Cold (6500K+ - Blue Hour)",
+      "Mixed (Warm & Cool)": "Mixed (Warm & Cool)",
+      "Candlelight (1800K)": "Candlelight (1800K)",
+      "Tungsten (3200K)": "Tungsten (3200K)"
+    },
+    "environmentTypes": {
+      "Studio/Graphic Design Composition": "Studio/Graphic Design Composition",
+      "Indoor/Interior": "Indoor/Interior",
+      "Outdoor/Exterior": "Outdoor/Exterior",
+      "Urban/City": "Urban/City",
+      "Nature/Landscape": "Nature/Landscape",
+      "Abstract/Undefined": "Abstract/Undefined"
+    },
+    "atmosphereOptions": {
+      "Energetic, Artistic, Urban, Cool": "Energetic, Artistic, Urban, Cool",
+      "Calm, Peaceful, Serene": "Calm, Peaceful, Serene",
+      "Dark, Moody, Mysterious": "Dark, Moody, Mysterious",
+      "Bright, Cheerful, Optimistic": "Bright, Cheerful, Optimistic",
+      "Professional, Corporate, Clean": "Professional, Corporate, Clean",
+      "Romantic, Soft, Dreamy": "Romantic, Soft, Dreamy",
+      "Futuristic, Sci-fi, Tech": "Futuristic, Sci-fi, Tech"
+    },
+    "resolutionOptions": {
+      "4K (3840×2160)": "4K (3840×2160)",
+      "2K (2560×1440)": "2K (2560×1440)",
+      "Full HD (1920×1080)": "Full HD (1920×1080)",
+      "HD (1280×720)": "HD (1280×720)",
+      "Square 1:1 (1024×1024)": "Square 1:1 (1024×1024)",
+      "Portrait 3:4 (768×1024)": "Portrait 3:4 (768×1024)",
+      "Landscape 16:9 (1920×1080)": "Landscape 16:9 (1920×1080)"
+    },
+    "lensTypes": {
+      "Wide Angle (14-35mm)": "Wide Angle (14-35mm)",
+      "Standard (35-50mm)": "Standard (35-50mm)",
+      "Portrait (50-85mm)": "Portrait (50-85mm)",
+      "Telephoto (85-200mm)": "Telephoto (85-200mm)",
+      "Macro": "Macro",
+      "Fisheye": "Fisheye",
+      "Tilt-Shift": "Tilt-Shift"
+    },
+    "focalPointOptions": {
+      "Subject's Face": "Subject's Face",
+      "Subject's Eyes": "Subject's Eyes",
+      "Center of Frame": "Center of Frame",
+      "Foreground Object": "Foreground Object",
+      "Background Element": "Background Element",
+      "Product/Item": "Product/Item",
+      "Text/Logo": "Text/Logo",
+      "Leading Lines Intersection": "Leading Lines Intersection"
+    },
+    "ruleOfThirdsOptions": {
+      "Subject Center": "Subject Center",
+      "Subject Left Third": "Subject Left Third",
+      "Subject Right Third": "Subject Right Third",
+      "Subject Upper Third": "Subject Upper Third",
+      "Subject Lower Third": "Subject Lower Third",
+      "Upper-Left Intersection": "Upper-Left Intersection",
+      "Upper-Right Intersection": "Upper-Right Intersection",
+      "Lower-Left Intersection": "Lower-Left Intersection",
+      "Lower-Right Intersection": "Lower-Right Intersection"
+    },
+    "objectCategories": {
+      "Person": "Person",
+      "Apparel": "Apparel",
+      "Footwear": "Footwear",
+      "Accessory": "Accessory",
+      "Illustration/Overlay": "Illustration/Overlay",
+      "Illustration/Background Element": "Illustration/Background Element",
+      "Digital Vector": "Digital Vector",
+      "Prop": "Prop",
+      "Environment": "Environment",
+      "Other": "Other"
+    },
+    "objectSizes": {
+      "Small": "Small",
+      "Medium": "Medium",
+      "Large": "Large"
+    },
+    "objectDistances": {
+      "Close": "Close",
+      "Mid": "Mid",
+      "Far": "Far",
+      "Zero (Overlay)": "Zero (Overlay)",
+      "Behind Subject": "Behind Subject"
+    },
+    "reflectivity": {
+      "None": "None",
+      "Low": "Low",
+      "Medium": "Medium",
+      "High": "High"
+    }
   }
 }

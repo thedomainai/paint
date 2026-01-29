@@ -11,6 +11,7 @@ import {
 } from "../types/prompt";
 import { StepItem, ButtonToggleGroup, SelectField, SectionCard } from "./ui";
 import type { ButtonToggleOption } from "./ui";
+import type { SelectOption } from "./ui/SelectField";
 
 interface CompositionSectionProps {
   composition: ImagePrompt["composition"];
@@ -24,6 +25,22 @@ export function CompositionSection({
   const t = useTranslations("composition");
   const tc = useTranslations("common");
   const ts = useTranslations("sections");
+  const to = useTranslations("options");
+
+  // Helper to create translated select options
+  const translateOptions = (
+    options: readonly string[],
+    namespace: string
+  ): SelectOption[] =>
+    options.map((opt) => ({
+      value: opt,
+      label: to(`${namespace}.${opt}`),
+    }));
+
+  const cameraAngleOptions = translateOptions(CAMERA_ANGLES, "cameraAngles");
+  const framingOptions = translateOptions(FRAMING_OPTIONS, "framingOptions");
+  const focalPointOptions = translateOptions(FOCAL_POINT_OPTIONS, "focalPointOptions");
+  const ruleOfThirdsOptions = translateOptions(RULE_OF_THIRDS_OPTIONS, "ruleOfThirdsOptions");
 
   const DEPTH_OPTIONS: ButtonToggleOption<string>[] = [
     { value: "Shallow (Subject in focus, background blurred)", label: t("shallow") },
@@ -49,7 +66,7 @@ export function CompositionSection({
           <SelectField
             value={composition.camera_angle}
             onValueChange={(value) => onUpdate({ camera_angle: value })}
-            options={CAMERA_ANGLES}
+            options={cameraAngleOptions}
             placeholder={t("selectAngle")}
           />
         </StepItem>
@@ -62,7 +79,7 @@ export function CompositionSection({
           <SelectField
             value={composition.framing}
             onValueChange={(value) => onUpdate({ framing: value })}
-            options={FRAMING_OPTIONS}
+            options={framingOptions}
             placeholder={t("selectFraming")}
           />
         </StepItem>
@@ -101,7 +118,7 @@ export function CompositionSection({
           <SelectField
             value={composition.focal_point}
             onValueChange={(value) => onUpdate({ focal_point: value })}
-            options={FOCAL_POINT_OPTIONS}
+            options={focalPointOptions}
             placeholder={t("selectFocalPoint")}
           />
         </StepItem>
@@ -115,7 +132,7 @@ export function CompositionSection({
           <SelectField
             value={composition.rule_of_thirds_alignment}
             onValueChange={(value) => onUpdate({ rule_of_thirds_alignment: value })}
-            options={RULE_OF_THIRDS_OPTIONS}
+            options={ruleOfThirdsOptions}
             placeholder={t("selectPosition")}
           />
         </StepItem>
