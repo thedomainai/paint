@@ -139,6 +139,16 @@
     "en": "English",
     "ja": "日本語"
   },
+  "analyzer": {
+    "title": "AI画像分析",
+    "subtitle": "参照画像をアップロードしてプロンプトを自動生成",
+    "dropImage": "画像をドロップ",
+    "orClickToUpload": "またはクリックしてアップロード",
+    "analyzing": "分析中...",
+    "analyzeAndGenerate": "分析してプロンプトを生成",
+    "analysisFailed": "画像の分析に失敗しました",
+    "networkError": "ネットワークエラー。再試行してください。"
+  },
   "options": {
     "imageTypes": {
       "Photography": "写真",
