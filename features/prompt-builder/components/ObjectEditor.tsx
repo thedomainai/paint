@@ -35,6 +35,10 @@ const CATEGORIES: ObjectCategory[] = [
   "Other",
 ];
 
+const SIZE_OPTIONS = ["Small", "Medium", "Large"] as const;
+const DISTANCE_OPTIONS = ["Close", "Mid", "Far", "Zero (Overlay)", "Behind Subject"] as const;
+const REFLECTIVITY_OPTIONS = ["None", "Low", "Medium", "High"] as const;
+
 interface ObjectEditorProps {
   object: PromptObject;
   onUpdate: (updates: Partial<PromptObject>) => void;
@@ -50,6 +54,13 @@ export function ObjectEditor({
 }: ObjectEditorProps) {
   const t = useTranslations("objects");
   const tc = useTranslations("common");
+  const to = useTranslations("options");
+
+  // Get translated label for the current value
+  const getCategoryLabel = (value: string) => to(`objectCategories.${value}`);
+  const getSizeLabel = (value: string) => to(`objectSizes.${value}`);
+  const getDistanceLabel = (value: string) => to(`objectDistances.${value}`);
+  const getReflectivityLabel = (value: string) => to(`reflectivity.${value}`);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -142,12 +153,12 @@ export function ObjectEditor({
             }
           >
             <SelectTrigger>
-              <SelectValue />
+              <SelectValue>{getCategoryLabel(object.category)}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               {CATEGORIES.map((cat) => (
                 <SelectItem key={cat} value={cat}>
-                  {cat}
+                  {getCategoryLabel(cat)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -165,12 +176,14 @@ export function ObjectEditor({
             }
           >
             <SelectTrigger>
-              <SelectValue />
+              <SelectValue>{getSizeLabel(object.dimensions_relative)}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Small">{t("small")}</SelectItem>
-              <SelectItem value="Medium">{tc("medium")}</SelectItem>
-              <SelectItem value="Large">{t("large")}</SelectItem>
+              {SIZE_OPTIONS.map((size) => (
+                <SelectItem key={size} value={size}>
+                  {getSizeLabel(size)}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -186,14 +199,14 @@ export function ObjectEditor({
             }
           >
             <SelectTrigger>
-              <SelectValue />
+              <SelectValue>{getDistanceLabel(object.distance_from_camera)}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Close">{t("close")}</SelectItem>
-              <SelectItem value="Mid">{t("mid")}</SelectItem>
-              <SelectItem value="Far">{t("far")}</SelectItem>
-              <SelectItem value="Zero (Overlay)">{t("overlay")}</SelectItem>
-              <SelectItem value="Behind Subject">{t("behind")}</SelectItem>
+              {DISTANCE_OPTIONS.map((distance) => (
+                <SelectItem key={distance} value={distance}>
+                  {getDistanceLabel(distance)}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -327,13 +340,14 @@ export function ObjectEditor({
                   }
                 >
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue>{getReflectivityLabel(object.surface_properties.reflectivity)}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="None">{tc("none")}</SelectItem>
-                    <SelectItem value="Low">{tc("low")}</SelectItem>
-                    <SelectItem value="Medium">{tc("medium")}</SelectItem>
-                    <SelectItem value="High">{tc("high")}</SelectItem>
+                    {REFLECTIVITY_OPTIONS.map((ref) => (
+                      <SelectItem key={ref} value={ref}>
+                        {getReflectivityLabel(ref)}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

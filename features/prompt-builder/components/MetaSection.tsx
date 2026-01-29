@@ -5,6 +5,7 @@ import { Sliders, Sparkles, Image, ScanLine, Aperture, Volume2 } from "lucide-re
 import type { ImagePrompt } from "../types/prompt";
 import { IMAGE_TYPES, RESOLUTION_OPTIONS, LENS_TYPES } from "../types/prompt";
 import { StepItem, ButtonToggleGroup, SelectField, SectionCard } from "./ui";
+import type { SelectOption } from "./ui/SelectField";
 
 interface MetaSectionProps {
   meta: ImagePrompt["meta"];
@@ -19,9 +20,24 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
   const t = useTranslations("meta");
   const tc = useTranslations("common");
   const ts = useTranslations("sections");
+  const to = useTranslations("options");
 
   const qualityLabels = [tc("low"), tc("medium"), tc("high"), t("ultra")] as const;
   const levelLabels = [tc("none"), tc("low"), tc("medium"), tc("high")] as const;
+
+  // Helper to create translated select options
+  const translateOptions = (
+    options: readonly string[],
+    namespace: string
+  ): SelectOption[] =>
+    options.map((opt) => ({
+      value: opt,
+      label: to(`${namespace}.${opt}`),
+    }));
+
+  const imageTypeOptions = translateOptions(IMAGE_TYPES, "imageTypes");
+  const resolutionOptions = translateOptions(RESOLUTION_OPTIONS, "resolutionOptions");
+  const lensOptions = translateOptions(LENS_TYPES, "lensTypes");
 
   return (
     <SectionCard icon={Sliders} title={ts("meta")}>
@@ -46,7 +62,7 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
           <SelectField
             value={meta.image_type}
             onValueChange={(value) => onUpdate({ image_type: value })}
-            options={IMAGE_TYPES}
+            options={imageTypeOptions}
             placeholder={t("selectType")}
             className="w-full"
           />
@@ -60,7 +76,7 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
           <SelectField
             value={meta.resolution_estimation}
             onValueChange={(value) => onUpdate({ resolution_estimation: value })}
-            options={RESOLUTION_OPTIONS}
+            options={resolutionOptions}
             placeholder={t("selectResolution")}
           />
         </StepItem>
@@ -121,7 +137,7 @@ export function MetaSection({ meta, onUpdate }: MetaSectionProps) {
                 },
               })
             }
-            options={LENS_TYPES}
+            options={lensOptions}
             placeholder={t("selectLens")}
           />
         </StepItem>

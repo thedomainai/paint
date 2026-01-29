@@ -5,6 +5,7 @@ export { ButtonToggleGroup } from "./ButtonToggleGroup";
 export type { ButtonToggleOption } from "./ButtonToggleGroup";
 
 export { SelectField } from "./SelectField";
+export type { SelectOption } from "./SelectField";
 
 export { SectionCard } from "./SectionCard";
 

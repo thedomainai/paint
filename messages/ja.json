@@ -138,5 +138,158 @@
     "label": "言語",
     "en": "English",
     "ja": "日本語"
+  },
+  "options": {
+    "imageTypes": {
+      "Photography": "写真",
+      "Digital Illustration": "デジタルイラスト",
+      "Mixed Media (Photography combined with Digital Illustration/Collage)": "ミックスメディア（写真とデジタルイラスト/コラージュの組み合わせ）",
+      "3D Render": "3Dレンダリング",
+      "Vector Art": "ベクターアート",
+      "Painting Style": "絵画スタイル",
+      "Anime/Manga Style": "アニメ/マンガスタイル"
+    },
+    "cameraAngles": {
+      "Eye-level": "アイレベル",
+      "Low-angle (looking up at subject)": "ローアングル（被写体を見上げる）",
+      "High-angle (looking down at subject)": "ハイアングル（被写体を見下ろす）",
+      "Bird's eye view": "俯瞰（バーズアイビュー）",
+      "Worm's eye view": "虫の目視点",
+      "Dutch angle": "ダッチアングル",
+      "Over-the-shoulder": "オーバーザショルダー"
+    },
+    "framingOptions": {
+      "Extreme Close-up": "エクストリームクローズアップ",
+      "Close-up (Face)": "クローズアップ（顔）",
+      "Medium Close-up (Head and Shoulders)": "ミディアムクローズアップ（頭と肩）",
+      "Medium Shot (Waist up)": "ミディアムショット（腰から上）",
+      "Medium Full Shot (Knees up)": "ミディアムフルショット（膝から上）",
+      "Full Shot (Head to Toe)": "フルショット（全身）",
+      "Wide Shot": "ワイドショット",
+      "Extreme Wide Shot": "エクストリームワイドショット"
+    },
+    "lightingSources": {
+      "Natural Sunlight": "自然光（太陽光）",
+      "Artificial Studio Lighting": "スタジオ照明（人工光）",
+      "Mixed (Natural + Artificial)": "ミックス（自然光＋人工光）",
+      "Window Light": "窓からの光",
+      "Neon/Colored Lighting": "ネオン/カラー照明",
+      "Ambient/Soft Lighting": "アンビエント/ソフト照明",
+      "Dramatic/High Contrast": "ドラマチック/ハイコントラスト"
+    },
+    "lightingQualities": {
+      "Soft, Diffused": "ソフト、拡散光",
+      "Hard, Directional": "ハード、指向性",
+      "Rim/Backlit": "リムライト/逆光",
+      "Flat": "フラット",
+      "Dramatic": "ドラマチック",
+      "Natural": "自然"
+    },
+    "lightingDirections": {
+      "Front": "正面",
+      "Back (Backlit)": "背面（逆光）",
+      "Left Side": "左サイド",
+      "Right Side": "右サイド",
+      "Top (Overhead)": "トップ（真上）",
+      "Bottom (Underlit)": "ボトム（下から）",
+      "45° Key Light": "45度キーライト",
+      "Rim Light": "リムライト",
+      "Split (Half/Half)": "スプリット（半分/半分）"
+    },
+    "colorTemperatures": {
+      "Warm (2700K - Golden Hour)": "暖色（2700K - ゴールデンアワー）",
+      "Neutral (4000K - Daylight)": "中間色（4000K - 日中）",
+      "Cool (5500K - Overcast)": "寒色（5500K - 曇天）",
+      "Cold (6500K+ - Blue Hour)": "冷色（6500K+ - ブルーアワー）",
+      "Mixed (Warm & Cool)": "ミックス（暖色＆寒色）",
+      "Candlelight (1800K)": "キャンドルライト（1800K）",
+      "Tungsten (3200K)": "タングステン（3200K）"
+    },
+    "environmentTypes": {
+      "Studio/Graphic Design Composition": "スタジオ/グラフィックデザイン構成",
+      "Indoor/Interior": "屋内/インテリア",
+      "Outdoor/Exterior": "屋外/エクステリア",
+      "Urban/City": "都市/シティ",
+      "Nature/Landscape": "自然/風景",
+      "Abstract/Undefined": "抽象的/未定義"
+    },
+    "atmosphereOptions": {
+      "Energetic, Artistic, Urban, Cool": "エネルギッシュ、アーティスティック、アーバン、クール",
+      "Calm, Peaceful, Serene": "穏やか、平和、静寂",
+      "Dark, Moody, Mysterious": "ダーク、ムーディー、ミステリアス",
+      "Bright, Cheerful, Optimistic": "明るい、陽気、楽観的",
+      "Professional, Corporate, Clean": "プロフェッショナル、コーポレート、クリーン",
+      "Romantic, Soft, Dreamy": "ロマンチック、ソフト、ドリーミー",
+      "Futuristic, Sci-fi, Tech": "フューチャリスティック、SF、テック"
+    },
+    "resolutionOptions": {
+      "4K (3840×2160)": "4K（3840×2160）",
+      "2K (2560×1440)": "2K（2560×1440）",
+      "Full HD (1920×1080)": "フルHD（1920×1080）",
+      "HD (1280×720)": "HD（1280×720）",
+      "Square 1:1 (1024×1024)": "正方形 1:1（1024×1024）",
+      "Portrait 3:4 (768×1024)": "縦長 3:4（768×1024）",
+      "Landscape 16:9 (1920×1080)": "横長 16:9（1920×1080）"
+    },
+    "lensTypes": {
+      "Wide Angle (14-35mm)": "広角（14-35mm）",
+      "Standard (35-50mm)": "標準（35-50mm）",
+      "Portrait (50-85mm)": "ポートレート（50-85mm）",
+      "Telephoto (85-200mm)": "望遠（85-200mm）",
+      "Macro": "マクロ",
+      "Fisheye": "魚眼",
+      "Tilt-Shift": "ティルトシフト"
+    },
+    "focalPointOptions": {
+      "Subject's Face": "被写体の顔",
+      "Subject's Eyes": "被写体の目",
+      "Center of Frame": "フレーム中央",
+      "Foreground Object": "前景オブジェクト",
+      "Background Element": "背景要素",
+      "Product/Item": "製品/アイテム",
+      "Text/Logo": "テキスト/ロゴ",
+      "Leading Lines Intersection": "導線の交点"
+    },
+    "ruleOfThirdsOptions": {
+      "Subject Center": "被写体中央",
+      "Subject Left Third": "被写体左3分の1",
+      "Subject Right Third": "被写体右3分の1",
+      "Subject Upper Third": "被写体上3分の1",
+      "Subject Lower Third": "被写体下3分の1",
+      "Upper-Left Intersection": "左上交点",
+      "Upper-Right Intersection": "右上交点",
+      "Lower-Left Intersection": "左下交点",
+      "Lower-Right Intersection": "右下交点"
+    },
+    "objectCategories": {
+      "Person": "人物",
+      "Apparel": "アパレル",
+      "Footwear": "フットウェア",
+      "Accessory": "アクセサリー",
+      "Illustration/Overlay": "イラスト/オーバーレイ",
+      "Illustration/Background Element": "イラスト/背景要素",
+      "Digital Vector": "デジタルベクター",
+      "Prop": "小道具",
+      "Environment": "環境",
+      "Other": "その他"
+    },
+    "objectSizes": {
+      "Small": "小",
+      "Medium": "中",
+      "Large": "大"
+    },
+    "objectDistances": {
+      "Close": "近い",
+      "Mid": "中間",
+      "Far": "遠い",
+      "Zero (Overlay)": "ゼロ（オーバーレイ）",
+      "Behind Subject": "被写体の後ろ"
+    },
+    "reflectivity": {
+      "None": "なし",
+      "Low": "低",
+      "Medium": "中",
+      "High": "高"
+    }
   }
 }

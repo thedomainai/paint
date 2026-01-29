@@ -19,6 +19,7 @@ import {
   SectionCard,
   ColorPickerList,
 } from "./ui";
+import type { SelectOption } from "./ui/SelectField";
 
 interface GlobalContextSectionProps {
   globalContext: ImagePrompt["global_context"];
@@ -42,8 +43,26 @@ export function GlobalContextSection({
   const t = useTranslations("context");
   const tc = useTranslations("common");
   const ts = useTranslations("sections");
+  const to = useTranslations("options");
 
   const contrastLabels = [tc("low"), tc("medium"), tc("high")] as const;
+
+  // Helper to create translated select options
+  const translateOptions = (
+    options: readonly string[],
+    namespace: string
+  ): SelectOption[] =>
+    options.map((opt) => ({
+      value: opt,
+      label: to(`${namespace}.${opt}`),
+    }));
+
+  const environmentOptions = translateOptions(ENVIRONMENT_TYPES, "environmentTypes");
+  const atmosphereOptions = translateOptions(ATMOSPHERE_OPTIONS, "atmosphereOptions");
+  const lightingSourceOptions = translateOptions(LIGHTING_SOURCES, "lightingSources");
+  const lightingQualityOptions = translateOptions(LIGHTING_QUALITIES, "lightingQualities");
+  const lightingDirectionOptions = translateOptions(LIGHTING_DIRECTIONS, "lightingDirections");
+  const colorTemperatureOptions = translateOptions(COLOR_TEMPERATURES, "colorTemperatures");
 
   const handleColorChange = (index: number, value: string) => {
     const newColors = [...globalContext.color_palette.dominant_hex_estimates];
@@ -92,7 +111,7 @@ export function GlobalContextSection({
           <SelectField
             value={globalContext.environment_type}
             onValueChange={(value) => onUpdate({ environment_type: value })}
-            options={ENVIRONMENT_TYPES}
+            options={environmentOptions}
             placeholder={t("selectEnvironment")}
           />
         </StepItem>
@@ -105,7 +124,7 @@ export function GlobalContextSection({
           <SelectField
             value={globalContext.weather_atmosphere}
             onValueChange={(value) => onUpdate({ weather_atmosphere: value })}
-            options={ATMOSPHERE_OPTIONS}
+            options={atmosphereOptions}
             placeholder={t("selectAtmosphere")}
           />
         </StepItem>
@@ -120,13 +139,13 @@ export function GlobalContextSection({
               <SelectField
                 value={globalContext.lighting.source}
                 onValueChange={(value) => onUpdateLighting({ source: value })}
-                options={LIGHTING_SOURCES}
+                options={lightingSourceOptions}
                 placeholder={t("lightingSource")}
               />
               <SelectField
                 value={globalContext.lighting.quality}
                 onValueChange={(value) => onUpdateLighting({ quality: value })}
-                options={LIGHTING_QUALITIES}
+                options={lightingQualityOptions}
                 placeholder={t("lightingQuality")}
               />
             </div>
@@ -134,13 +153,13 @@ export function GlobalContextSection({
               <SelectField
                 value={globalContext.lighting.direction}
                 onValueChange={(value) => onUpdateLighting({ direction: value })}
-                options={LIGHTING_DIRECTIONS}
+                options={lightingDirectionOptions}
                 placeholder={t("lightingDirection")}
               />
               <SelectField
                 value={globalContext.lighting.color_temperature}
                 onValueChange={(value) => onUpdateLighting({ color_temperature: value })}
-                options={COLOR_TEMPERATURES}
+                options={colorTemperatureOptions}
                 placeholder={t("colorTemperature")}
               />
             </div>
