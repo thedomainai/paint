@@ -139,6 +139,16 @@
     "en": "English",
     "ja": "Japanese"
   },
+  "analyzer": {
+    "title": "AI Image Analysis",
+    "subtitle": "Upload a reference image to auto-generate prompt",
+    "dropImage": "Drop image here",
+    "orClickToUpload": "or click to upload",
+    "analyzing": "Analyzing...",
+    "analyzeAndGenerate": "Analyze & Generate Prompt",
+    "analysisFailed": "Failed to analyze image",
+    "networkError": "Network error. Please try again."
+  },
   "options": {
     "imageTypes": {
       "Photography": "Photography",
